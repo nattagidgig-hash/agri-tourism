@@ -1,0 +1,1983 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ระบบฐานสมาชิก ทรัพยากร มาตรฐาน และการบริหารการขายของเครือข่ายเกษตร ปศุสัตว์ และการท่องเที่ยว ตั้งแต่คลังสินค้าจนถึงการชำระเงินและจัดส่ง">
+  <title>แพลตฟอร์มสมาชิก ทรัพยากร และการบริหารการขายของเครือข่าย</title>
+  <style>
+    :root {
+      --paper: #f3efe4;
+      --surface: #fffdf7;
+      --ink: #17231c;
+      --muted: #5e6c63;
+      --forest: #123d2b;
+      --forest-2: #205b40;
+      --leaf: #a8cc47;
+      --leaf-soft: #e7efce;
+      --line: #cfd7ca;
+      --blue: #245e73;
+      --blue-soft: #e3edf0;
+      --amber: #8a5a16;
+      --amber-soft: #f5ead5;
+      --danger: #8a332b;
+      --danger-soft: #f4e2de;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 24px;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(18, 61, 43, 0.035) 1px, transparent 1px),
+        linear-gradient(rgba(18, 61, 43, 0.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 28px 28px;
+      font-family: "Sukhumvit Set", Thonburi, "Noto Sans Thai", sans-serif;
+      line-height: 1.75;
+    }
+
+    a { color: inherit; }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 8px 12px;
+      color: var(--surface);
+      background: var(--forest);
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .reading-progress {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 90;
+      height: 4px;
+      background: rgba(18, 61, 43, 0.1);
+    }
+
+    .reading-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--leaf);
+    }
+
+    .hero {
+      color: #f7f4e9;
+      background: var(--forest);
+      border-bottom: 8px solid var(--leaf);
+    }
+
+    .hero-inner {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      padding: 72px 0 62px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.55fr);
+      gap: 56px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--leaf);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, h4 { line-height: 1.25; }
+
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      overflow-wrap: anywhere;
+      font-size: clamp(2.35rem, 6vw, 5.4rem);
+      font-weight: 700;
+      letter-spacing: -0.055em;
+    }
+
+    .hero-lead {
+      max-width: 780px;
+      margin: 28px 0 0;
+      color: #dfe9dc;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.75;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-note {
+      min-width: 0;
+      padding: 22px 0 4px 24px;
+      border-left: 2px solid var(--leaf);
+    }
+
+    .hero-note strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--leaf);
+      font-size: 1.15rem;
+    }
+
+    .hero-note p { margin: 0; color: #dfe9dc; }
+
+    .mobile-toc {
+      display: none;
+      width: min(calc(100% - 32px), 760px);
+      margin: 20px auto 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .mobile-toc summary {
+      padding: 14px 16px;
+      color: var(--forest);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .mobile-toc nav { padding: 0 16px 16px; }
+
+    .page-shell {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 238px minmax(0, 1fr);
+      gap: 56px;
+      align-items: start;
+    }
+
+    .side-nav {
+      position: sticky;
+      top: 28px;
+      padding: 42px 0;
+      max-height: 100vh;
+      overflow: auto;
+    }
+
+    .side-nav p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .side-nav a,
+    .mobile-toc a {
+      display: block;
+      padding: 7px 10px;
+      color: var(--muted);
+      border-left: 2px solid transparent;
+      text-decoration: none;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .side-nav a:hover,
+    .side-nav a.active,
+    .mobile-toc a:hover {
+      color: var(--forest);
+      border-left-color: var(--leaf);
+      background: rgba(168, 204, 71, 0.13);
+    }
+
+    main {
+      min-width: 0;
+      padding: 26px 0 100px;
+    }
+
+    section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-child { border-bottom: 0; }
+
+    .section-kicker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 12px;
+      color: var(--forest-2);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker::before {
+      content: "";
+      width: 34px;
+      height: 3px;
+      background: var(--leaf);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      color: var(--forest);
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      letter-spacing: -0.035em;
+    }
+
+    h3 {
+      margin: 38px 0 12px;
+      color: var(--forest);
+      font-size: 1.35rem;
+    }
+
+    h4 { margin: 24px 0 8px; font-size: 1.02rem; }
+
+    p { max-width: 760px; }
+
+    .lead {
+      margin: 0 0 32px;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .plain-summary {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: var(--surface);
+      background: var(--forest);
+      border-left: 7px solid var(--leaf);
+      font-size: 1.08rem;
+    }
+
+    .plain-summary strong { color: var(--leaf); }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 6px 6px 0;
+      padding: 4px 9px;
+      color: var(--forest);
+      background: var(--leaf-soft);
+      border: 1px solid #bccd86;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .tag.proposed {
+      color: var(--blue);
+      background: var(--blue-soft);
+      border-color: #afc8d1;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .grid-2 > *,
+    .grid-3 > *,
+    .grid-4 > *,
+    .data-stack > *,
+    .metric-list > * { min-width: 0; }
+
+    h2,
+    h3,
+    h4,
+    p,
+    li,
+    th,
+    td,
+    .note,
+    .proposal,
+    .warning,
+    .phase-content,
+    .flow-node span {
+      overflow-wrap: anywhere;
+    }
+
+    .panel {
+      padding: 22px;
+      background: rgba(255, 253, 247, 0.76);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--forest-2);
+    }
+
+    .panel.accent { border-top-color: var(--leaf); }
+    .panel.blue { border-top-color: var(--blue); }
+    .panel.amber { border-top-color: var(--amber); }
+
+    .panel h3,
+    .panel h4 { margin-top: 0; }
+
+    .panel p:last-child,
+    .panel ul:last-child { margin-bottom: 0; }
+
+    .panel-number {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--forest-2);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    ul, ol { padding-left: 1.35rem; }
+    li + li { margin-top: 8px; }
+    li::marker { color: var(--forest-2); font-weight: 700; }
+
+    .simple-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .simple-list li {
+      position: relative;
+      padding: 10px 0 10px 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .simple-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--forest-2);
+      font-weight: 800;
+    }
+
+    .table-wrap {
+      margin: 24px 0;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--surface);
+      background: var(--forest);
+      font-weight: 700;
+    }
+
+    tbody tr:last-child td { border-bottom: 0; }
+
+    .note,
+    .warning,
+    .proposal {
+      margin: 26px 0;
+      padding: 18px 20px;
+      border-left: 5px solid;
+    }
+
+    .note {
+      color: var(--forest);
+      background: var(--leaf-soft);
+      border-color: var(--leaf);
+    }
+
+    .proposal {
+      color: #194958;
+      background: var(--blue-soft);
+      border-color: var(--blue);
+    }
+
+    .warning {
+      color: #6b4210;
+      background: var(--amber-soft);
+      border-color: var(--amber);
+    }
+
+    .note strong,
+    .proposal strong,
+    .warning strong { display: block; margin-bottom: 5px; }
+
+    figure { margin: 34px 0; }
+
+    figcaption {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .section-visual {
+      margin: 30px 0 38px;
+    }
+
+    .section-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: var(--leaf-soft);
+      border: 1px solid var(--line);
+      border-bottom: 6px solid var(--leaf);
+    }
+
+    .section-visual figcaption {
+      display: flex;
+      gap: 9px;
+      align-items: baseline;
+      max-width: 760px;
+    }
+
+    .section-visual figcaption::before {
+      content: "ภาพประกอบ";
+      flex: 0 0 auto;
+      color: var(--forest-2);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .flow-title {
+      margin-bottom: 18px;
+      color: var(--forest);
+      font-weight: 700;
+    }
+
+    .system-flow {
+      display: grid;
+      grid-template-columns: 1fr 34px 1fr 34px 1fr 34px 1fr;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .flow-node {
+      min-height: 116px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--forest-2);
+    }
+
+    .flow-node.core {
+      color: #f7f4e9;
+      background: var(--forest);
+      border-color: var(--forest);
+      border-top-color: var(--leaf);
+    }
+
+    .flow-node.output { border-top-color: var(--leaf); }
+
+    .flow-node strong {
+      display: block;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .flow-node span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    .flow-node.core span { color: #d9e6d9; }
+
+    .flow-arrow {
+      display: grid;
+      place-items: center;
+      color: var(--forest-2);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .feedback-loop {
+      margin-top: 12px;
+      padding: 12px 16px;
+      color: var(--forest);
+      background: var(--leaf-soft);
+      border-left: 5px solid var(--leaf);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .business-model {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr);
+      gap: 16px;
+      padding: 26px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .business-model:last-child { border-bottom: 1px solid var(--line); }
+
+    .model-id {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      color: var(--surface);
+      background: var(--forest);
+      border-bottom: 6px solid var(--leaf);
+      font-weight: 800;
+    }
+
+    .business-model h3 { margin: 0 0 8px; }
+    .business-model p { margin-top: 0; }
+
+    .data-stack {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 28px 0;
+    }
+
+    .data-bucket {
+      padding: 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-bottom: 6px solid var(--forest-2);
+    }
+
+    .data-bucket:nth-child(2) { border-bottom-color: var(--amber); }
+    .data-bucket:nth-child(3) { border-bottom-color: var(--blue); }
+    .data-bucket h3 { margin-top: 0; }
+
+    .lifecycle {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(120px, 1fr));
+      gap: 0;
+      margin: 28px 0;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .life-step {
+      position: relative;
+      min-width: 130px;
+      padding: 18px 16px 18px 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-right: 0;
+    }
+
+    .life-step:last-child { border-right: 1px solid var(--line); }
+
+    .life-step::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -7px;
+      z-index: 2;
+      width: 12px;
+      height: 12px;
+      background: var(--leaf);
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .life-step:last-child::after { display: none; }
+
+    .life-step b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--forest);
+    }
+
+    .life-step small { color: var(--muted); }
+
+    .phase-list {
+      margin: 28px 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: phase;
+    }
+
+    .phase {
+      counter-increment: phase;
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1fr);
+      gap: 24px;
+      padding: 0 0 36px;
+      position: relative;
+    }
+
+    .phase::before {
+      content: "";
+      position: absolute;
+      left: 39px;
+      top: 62px;
+      bottom: 0;
+      width: 2px;
+      background: var(--line);
+    }
+
+    .phase:last-child::before { display: none; }
+
+    .phase-index {
+      display: grid;
+      place-items: center;
+      width: 80px;
+      height: 58px;
+      color: var(--surface);
+      background: var(--forest);
+      border-bottom: 6px solid var(--leaf);
+      font-weight: 800;
+    }
+
+    .phase-index::after { content: "0" counter(phase); }
+    .phase-content h3 { margin: 0 0 8px; }
+    .phase-content p { margin: 0 0 12px; }
+
+    .workflow-map {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      counter-reset: work;
+      margin: 28px 0;
+    }
+
+    .workflow-node {
+      counter-increment: work;
+      min-height: 120px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      position: relative;
+    }
+
+    .workflow-node::before {
+      content: counter(work, decimal-leading-zero);
+      display: block;
+      margin-bottom: 8px;
+      color: var(--forest-2);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+
+    .workflow-node::after {
+      content: "→";
+      position: absolute;
+      right: -12px;
+      top: 42%;
+      z-index: 3;
+      color: var(--forest-2);
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .workflow-node:nth-child(5)::after,
+    .workflow-node:last-child::after { display: none; }
+
+    .workflow-node:nth-child(n+6) { border-top: 5px solid var(--leaf); }
+
+    .workflow-node strong { display: block; line-height: 1.45; }
+    .workflow-node small { display: block; margin-top: 6px; color: var(--muted); }
+
+    .decision-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .decision {
+      padding: 18px;
+      border-left: 5px solid var(--forest-2);
+      background: var(--surface);
+    }
+
+    .decision.no { border-left-color: var(--danger); }
+
+    .metric-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .metric-list li {
+      margin: 0;
+      padding: 18px;
+      background: var(--surface);
+      border-top: 4px solid var(--forest-2);
+    }
+
+    .quote {
+      margin: 42px 0 0;
+      padding: 28px 0 28px 28px;
+      color: var(--forest);
+      border-left: 8px solid var(--leaf);
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-weight: 700;
+      line-height: 1.65;
+    }
+
+    footer {
+      padding: 36px 20px;
+      color: #dfe9dc;
+      background: var(--forest);
+      text-align: center;
+    }
+
+    footer a { color: var(--leaf); }
+
+    @media (max-width: 980px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 24px; }
+      .hero-note { max-width: 620px; }
+      .page-shell { grid-template-columns: 190px minmax(0, 1fr); gap: 30px; }
+      .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .system-flow { grid-template-columns: 1fr; }
+      .flow-arrow { min-height: 24px; transform: rotate(90deg); }
+      .workflow-map { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .workflow-node:nth-child(5)::after { display: block; }
+      .workflow-node:nth-child(even)::after { display: none; }
+      .workflow-node:last-child::after { display: none; }
+    }
+
+    @media (max-width: 760px) {
+      .hero-inner {
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+        padding: 56px 0 46px;
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-inner > *,
+      .page-shell > *,
+      main,
+      section,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .data-stack,
+      .panel,
+      .data-bucket,
+      .phase-content,
+      .note,
+      .proposal,
+      .warning {
+        min-width: 0;
+        max-width: 100%;
+      }
+      h1, h2, h3, h4, p, li { word-break: break-word; }
+      h1 { letter-spacing: -0.035em; }
+      .mobile-toc {
+        display: block;
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+      }
+      .page-shell {
+        display: block;
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+      }
+      .side-nav { display: none; }
+      main { padding-top: 0; }
+      section { padding: 48px 0; }
+      .grid-2, .grid-3, .grid-4, .data-stack, .metric-list { grid-template-columns: 1fr; }
+      .phase { grid-template-columns: 58px minmax(0, 1fr); gap: 16px; }
+      .phase-index { width: 58px; height: 52px; }
+      .phase::before { left: 28px; top: 56px; }
+      .workflow-map { grid-template-columns: 1fr; }
+      .workflow-node::after,
+      .workflow-node:nth-child(5)::after {
+        display: block;
+        top: auto;
+        bottom: -21px;
+        left: 50%;
+        right: auto;
+        transform: rotate(90deg);
+      }
+      .workflow-node:last-child::after { display: none; }
+      .decision-row { grid-template-columns: 1fr; }
+      .business-model { grid-template-columns: 44px minmax(0, 1fr); }
+      .model-id { width: 44px; height: 44px; }
+      .section-visual { margin: 24px 0 32px; }
+      .section-visual figcaption { align-items: flex-start; }
+    }
+
+    @media print {
+      @page { size: A4; margin: 14mm 13mm 16mm; }
+      body { background: white; font-size: 10.5pt; }
+      .reading-progress, .side-nav, .mobile-toc { display: none !important; }
+      .hero { color: var(--ink); background: white; border-bottom: 4px solid var(--forest); }
+      .hero-inner { width: 100%; padding: 0 0 24px; display: block; }
+      .hero h1 { color: var(--forest); font-size: 30pt; }
+      .hero-lead, .hero-note p { color: var(--ink); }
+      .hero-note { margin-top: 18px; }
+      .page-shell { width: 100%; display: block; }
+      main { padding: 0; }
+      section { padding: 28px 0; }
+      .panel, .flow-node, .data-bucket, .workflow-node, .metric-list li { background: white; }
+      .panel, .data-bucket, .flow-node, .phase, .workflow-node, table, .note, .proposal, .warning { break-inside: avoid; }
+      .section-visual { break-inside: avoid; }
+      .system-flow { grid-template-columns: repeat(7, 1fr); }
+      .flow-arrow { transform: none; }
+      a { text-decoration: none; }
+      footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">ข้ามไปอ่านเนื้อหา</a>
+  <div class="reading-progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">พิมพ์เขียวระบบ (System Blueprint) · ฉบับอ่านง่าย</p>
+        <h1>แพลตฟอร์มสมาชิก ทรัพยากร และการบริหารการขายของเครือข่าย</h1>
+        <p class="hero-lead">เริ่มจากทำให้เห็นว่าในเครือข่ายมีใคร อยู่ที่ไหน และมีทรัพยากรอะไร แล้วต่อยอดให้สมาชิกผู้ผลิตหรือผู้ประกอบการบริหารสินค้า คำสั่งซื้อ การชำระเงิน และการจัดส่งได้ในระบบเดียว</p>
+      </div>
+      <aside class="hero-note" aria-label="สถานะโครงการ">
+        <strong>เป้าหมายระยะแรก</strong>
+        <p>สร้างฐานสมาชิกและมองเห็นทรัพยากรก่อน จากนั้นเพิ่มการเชื่อมโยงธุรกิจ คลังสินค้า คำสั่งซื้อ การแจ้งเตือน การจัดส่ง และการชำระเงินออนไลน์เป็นลำดับ</p>
+      </aside>
+    </div>
+  </header>
+
+  <details class="mobile-toc">
+    <summary>เปิดสารบัญ</summary>
+    <nav aria-label="สารบัญบนมือถือ"></nav>
+  </details>
+
+  <div class="page-shell">
+    <aside class="side-nav" aria-label="สารบัญ">
+      <p>สารบัญ</p>
+      <nav id="desktopNav">
+        <a href="#overview">ภาพรวม</a>
+        <a href="#initial-goal">เป้าหมายระยะแรก</a>
+        <a href="#problems">ปัญหาที่แก้</a>
+        <a href="#people">คนในระบบ</a>
+        <a href="#business">รูปแบบธุรกิจ</a>
+        <a href="#architecture">ภาพรวมระบบ</a>
+        <a href="#collection">การเก็บข้อมูล</a>
+        <a href="#data">ข้อมูลที่ต้องเก็บ</a>
+        <a href="#seller-operations">ระบบบริหารการขาย</a>
+        <a href="#lifecycle">วงจรข้อมูล</a>
+        <a href="#usage">การใช้ข้อมูล</a>
+        <a href="#workflow">ลำดับการทำงาน</a>
+        <a href="#example">ตัวอย่างใช้งาน</a>
+        <a href="#modules">ส่วนประกอบของระบบ</a>
+        <a href="#dashboard">ตัวชี้วัด</a>
+        <a href="#mvp">แผนพัฒนาระบบ</a>
+        <a href="#decisions">เรื่องที่ต้องตัดสินใจ</a>
+      </nav>
+    </aside>
+
+    <main id="main">
+      <section id="overview">
+        <p class="section-kicker">01 · เข้าใจใน 1 นาที</p>
+        <h2>โปรเจกต์นี้ทำอะไร</h2>
+        <p class="lead">สร้างฐานข้อมูลกลางเพื่อให้เครือข่ายรู้จักสมาชิก เห็นทรัพยากร และเชื่อมข้อมูลนั้นไปสู่การทำงานและการขายจริง</p>
+
+        <figure class="section-visual">
+          <img src="assets/illustrations/01-ecosystem-overview.webp" width="1672" height="941" alt="เกษตรกร ผู้ผลิต ผู้ซื้อ ธุรกิจท่องเที่ยว และผู้ประสานงาน เชื่อมโยงกันผ่านแพลตฟอร์มข้อมูลกลาง" decoding="async" fetchpriority="high">
+          <figcaption>ภาพรวมระบบนิเวศที่นำคน ทรัพยากร มาตรฐาน ความร่วมมือ และการขายมาเชื่อมกันในแพลตฟอร์มเดียว</figcaption>
+        </figure>
+
+        <div class="plain-summary">
+          <strong>พูดให้ง่ายที่สุด:</strong>
+          ระบบนี้ต้องตอบให้ได้ว่า “ในเครือข่ายมีใครบ้าง อยู่ที่ไหน มีอะไร พร้อมขายเท่าไร ผ่านมาตรฐานอะไร และคำสั่งซื้ออยู่ขั้นไหน” เพื่อใช้วางแผน พัฒนาคุณภาพ และสร้างรายได้ร่วมกัน
+        </div>
+
+        <div class="grid-4">
+          <article class="panel">
+            <span class="panel-number">หน้าที่ 01</span>
+            <h3>รู้จักสมาชิก</h3>
+            <p>รู้ว่าในเครือข่ายมีบุคคล กลุ่ม ฟาร์ม และธุรกิจใดบ้าง</p>
+          </article>
+          <article class="panel accent">
+            <span class="panel-number">หน้าที่ 02</span>
+            <h3>เห็นทรัพยากร</h3>
+            <p>รู้ว่าสมาชิกแต่ละรายมีสินค้า พื้นที่ ความรู้ และความสามารถอะไร</p>
+          </article>
+          <article class="panel blue">
+            <span class="panel-number">หน้าที่ 03</span>
+            <h3>เห็นภาพรวม</h3>
+            <p>ดูข้อมูลผ่านแผนที่และหน้าสรุปภาพรวม (Dashboard) แยกตามพื้นที่และประเภท</p>
+          </article>
+          <article class="panel amber">
+            <span class="panel-number">หน้าที่ 04</span>
+            <h3>บริหารการขายและความร่วมมือ</h3>
+            <p>ใช้ข้อมูลเชื่อมโยงธุรกิจ จัดการคลัง คำสั่งซื้อ การชำระเงิน การจัดส่ง และติดตามผล</p>
+          </article>
+        </div>
+
+        <p class="quote">รู้จักสมาชิก → เห็นทรัพยากรและมาตรฐาน → เปิดขาย → รับคำสั่งซื้อ → ชำระและจัดส่ง → เรียนรู้จากผลจริง</p>
+      </section>
+
+      <section id="initial-goal">
+        <p class="section-kicker">02 · เป้าหมายระยะแรก</p>
+        <h2>สร้างฐานสมาชิกและเห็นทรัพยากรภายใน</h2>
+        <p class="lead">เวอร์ชันแรกควรเป็นระบบข้อมูลของระบบนิเวศเครือข่าย (Ecosystem) ก่อนจะเป็นตลาดกลางออนไลน์ (Marketplace) หรือระบบเชื่อมโยงธุรกิจ</p>
+
+        <figure class="section-visual">
+          <img src="assets/illustrations/02-member-resource-map.webp" width="1672" height="941" alt="สมาชิก ฟาร์ม สินค้า บริการ ทักษะ และสถานที่ กระจายอยู่รอบแผนที่เครือข่าย" loading="lazy" decoding="async">
+          <figcaption>แผนที่เดียวช่วยให้เห็นว่าใครอยู่ที่ไหน มีสินค้า บริการ ทักษะ หรือกำลังรองรับอะไร และเชื่อมต่อกับใครได้บ้าง</figcaption>
+        </figure>
+
+        <div class="plain-summary">
+          <strong>ชื่อเรียกที่ตรงกับเป้าหมาย:</strong>
+          แพลตฟอร์มฐานสมาชิกและข้อมูลทรัพยากรของระบบนิเวศเครือข่าย (Ecosystem Membership &amp; Resource Intelligence Platform) — ระบบที่ช่วยให้รู้ว่าในเครือข่ายมีใคร อยู่ที่ไหน มีทรัพยากรอะไร มีความสามารถอะไร และพร้อมร่วมมือเรื่องใด
+        </div>
+
+        <h3>6 ความสามารถหลักของระยะแรก</h3>
+        <div class="grid-3">
+          <article class="panel">
+            <span class="panel-number">01 · ฐานสมาชิก (Member Registry)</span>
+            <h3>ฐานสมาชิก</h3>
+            <p>เก็บข้อมูลบุคคล กลุ่ม ฟาร์ม และธุรกิจไว้ในระบบเดียวกัน</p>
+          </article>
+          <article class="panel accent">
+            <span class="panel-number">02 · แผนที่ทรัพยากร (Resource Mapping)</span>
+            <h3>แผนที่ทรัพยากร</h3>
+            <p>เห็นสินค้า พื้นที่ เครื่องมือ ความรู้ และกำลังการผลิตที่มีอยู่</p>
+          </article>
+          <article class="panel blue">
+            <span class="panel-number">03 · แผนที่พื้นที่ (Location Mapping)</span>
+            <h3>ตำแหน่งและพื้นที่</h3>
+            <p>ดูการกระจายตัวของสมาชิกและทรัพยากรตามจังหวัด อำเภอ และกลุ่มพื้นที่ (Cluster)</p>
+          </article>
+          <article class="panel">
+            <span class="panel-number">04 · แผนที่ความสามารถ (Capability Mapping)</span>
+            <h3>ความสามารถ</h3>
+            <p>รู้ว่าใครเชี่ยวชาญเรื่องอะไร และช่วยเครือข่ายด้านใดได้บ้าง</p>
+          </article>
+          <article class="panel accent">
+            <span class="panel-number">05 · ความต้องการและความสนใจ (Need &amp; Interest)</span>
+            <h3>ความต้องการ</h3>
+            <p>รู้ว่าสมาชิกต้องการอะไร สนใจเรื่องใด และพร้อมเข้าร่วมโครงการแบบไหน</p>
+          </article>
+          <article class="panel blue">
+            <span class="panel-number">06 · หน้าสรุประบบนิเวศเครือข่าย (Ecosystem Dashboard)</span>
+            <h3>ภาพรวมเครือข่าย</h3>
+            <p>สรุปจำนวนสมาชิก ทรัพยากร จุดแข็ง ช่องว่าง และโอกาสของแต่ละพื้นที่</p>
+          </article>
+        </div>
+
+        <h3>ข้อมูลที่ควรเก็บในระยะแรก</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>กลุ่มข้อมูล</th><th>ตัวอย่างข้อมูล</th><th>นำไปใช้อะไร</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>ตัวตนสมาชิก</strong></td><td>ชื่อ ประเภทสมาชิก ผู้ติดต่อ และบทบาท</td><td>สร้างทะเบียนสมาชิกและแบ่งกลุ่มผู้ใช้งาน</td></tr>
+              <tr><td><strong>พื้นที่</strong></td><td>ที่อยู่ จังหวัด อำเภอ ตำบล และพิกัดแผนที่ (GPS)</td><td>แสดงบนแผนที่และวิเคราะห์รายพื้นที่</td></tr>
+              <tr><td><strong>ทรัพยากร</strong></td><td>สินค้า บริการ กิจกรรม พื้นที่ เครื่องมือ และวัตถุดิบ</td><td>เห็นสิ่งที่เครือข่ายมีและสิ่งที่ยังขาด</td></tr>
+              <tr><td><strong>ความสามารถ</strong></td><td>ความรู้ ทักษะ ประสบการณ์ และกำลังรองรับ</td><td>ค้นหาผู้เชี่ยวชาญและออกแบบโครงการร่วม</td></tr>
+              <tr><td><strong>ความต้องการ</strong></td><td>สิ่งที่ต้องการความช่วยเหลือและเรื่องที่สนใจ</td><td>วางแผนกิจกรรม การพัฒนา และความร่วมมือ</td></tr>
+              <tr><td><strong>ความพร้อม</strong></td><td>พร้อมเข้าร่วมโครงการ พร้อมขาย หรือยังต้องพัฒนา</td><td>แยกสมาชิกตามระดับความพร้อม</td></tr>
+              <tr><td><strong>คุณภาพข้อมูล</strong></td><td>ผู้กรอก ผู้ตรวจ วันที่อัปเดต และความยินยอม</td><td>รักษาความน่าเชื่อถือและคุ้มครองข้อมูลส่วนบุคคล</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>ลำดับการทำงานสำหรับสร้างฐานระบบนิเวศเครือข่าย</h3>
+        <figure>
+          <div class="workflow-map" role="img" aria-label="แปดขั้นตอนการสร้างฐานสมาชิกและแผนที่ทรัพยากร">
+            <div class="workflow-node"><strong>เชิญสมาชิก</strong><small>บุคคล กลุ่ม ฟาร์ม และธุรกิจ</small></div>
+            <div class="workflow-node"><strong>กรอกข้อมูล</strong><small>ผ่าน LINE หรือแบบฟอร์มเว็บ (Web Form)</small></div>
+            <div class="workflow-node"><strong>ช่วยเก็บข้อมูล</strong><small>ผู้ประสานงานเครือข่ายประจำพื้นที่ลงพื้นที่</small></div>
+            <div class="workflow-node"><strong>ตรวจสอบ</strong><small>ตัวตน พิกัด และความครบถ้วน</small></div>
+            <div class="workflow-node"><strong>จัดหมวดหมู่</strong><small>สมาชิก ทรัพยากร และความสามารถ</small></div>
+            <div class="workflow-node"><strong>แสดงผล</strong><small>ฐานสมาชิก แผนที่ และหน้าสรุปภาพรวม</small></div>
+            <div class="workflow-node"><strong>วิเคราะห์</strong><small>จุดแข็ง ช่องว่าง และโอกาส</small></div>
+            <div class="workflow-node"><strong>อัปเดต</strong><small>ยืนยันข้อมูลเป็นระยะ</small></div>
+          </div>
+          <figcaption>ผลลัพธ์ของระยะแรกคือข้อมูลที่ค้นหาได้ เชื่อถือได้ และเห็นภาพรวมจริง ไม่ใช่จำนวนรายชื่อที่เก็บไว้เฉย ๆ</figcaption>
+        </figure>
+
+        <h3>ระบบต้องตอบคำถามเหล่านี้ได้</h3>
+        <div class="grid-2">
+          <ul class="simple-list">
+            <li>เรามีสมาชิกทั้งหมดกี่ราย และเป็นสมาชิกประเภทใด</li>
+            <li>สมาชิกอยู่ในจังหวัดหรือพื้นที่ใดบ้าง</li>
+            <li>แต่ละพื้นที่มีทรัพยากรอะไรและจำนวนเท่าไร</li>
+            <li>ใครมีความรู้หรือความเชี่ยวชาญเรื่องใด</li>
+          </ul>
+          <ul class="simple-list">
+            <li>สมาชิกต้องการความช่วยเหลืออะไร</li>
+            <li>ใครพร้อมเข้าร่วมโครงการหรือทำงานร่วมกัน</li>
+            <li>พื้นที่ใดมีศักยภาพพัฒนาเป็นกลุ่มความร่วมมือในพื้นที่ (Cluster)</li>
+            <li>ข้อมูลของใครต้องตรวจหรืออัปเดตใหม่</li>
+          </ul>
+        </div>
+
+        <h3>ลำดับการเติบโตของแพลตฟอร์ม</h3>
+        <ol class="phase-list">
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>ฐานสมาชิกและทรัพยากร</h3>
+              <p>รวบรวม ตรวจสอบ และจัดหมวดข้อมูลให้ค้นหาได้</p>
+              <span class="tag">เป้าหมายเริ่มต้น</span>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>หน้าสรุปภาพรวมและการวิเคราะห์ (Dashboard)</h3>
+              <p>มองเห็นจำนวน การกระจาย จุดแข็ง และช่องว่างของระบบนิเวศเครือข่าย</p>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>แนะนำความร่วมมือ</h3>
+              <p>ค้นหาสมาชิกที่มีทรัพยากรหรือความสามารถที่เกี่ยวข้องกัน</p>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>การเชื่อมโยงความร่วมมือทางธุรกิจ (Business Matching)</h3>
+              <p>เชื่อมทรัพยากรที่มี (Supply) กับความต้องการ (Demand) เมื่อข้อมูลทั้งสองฝั่งพร้อม</p>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>พื้นที่ประสานความร่วมมือและการติดตามผล</h3>
+              <p>รองรับการทดลองร่วมงาน บันทึกแนวทางความร่วมมือ การส่งมอบ และคะแนนความน่าเชื่อถือ</p>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>ระบบบริหารการขายของสมาชิก</h3>
+              <p>จัดการสินค้า คลัง คำสั่งซื้อ การแจ้งเตือน การชำระเงิน และการจัดส่ง โดยเชื่อมกับข้อมูลสมาชิกและมาตรฐานเดิม</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="note">
+          <strong>หลักสำคัญ</strong>
+          ระบบซื้อขายเต็มรูปแบบยังไม่ควรเปิดก่อนข้อมูลสมาชิก สินค้า มาตรฐาน และจำนวนพร้อมขายมีคุณภาพ แต่ความสามารถด้านคลัง คำสั่งซื้อ การชำระเงิน และการจัดส่งถือเป็นขอบเขตของระบบระยะถัดไปที่ต้องออกแบบไว้ตั้งแต่ต้น
+        </div>
+      </section>
+
+      <section id="problems">
+        <p class="section-kicker">03 · เหตุผลที่ต้องมีระบบ</p>
+        <h2>ปัญหาที่ต้องการแก้</h2>
+
+        <figure class="section-visual">
+          <img src="assets/illustrations/03-problems-standards.webp" width="1672" height="941" alt="ข้อมูล เอกสารสินค้า และใบรับรองที่กระจัดกระจาย ถูกจัดเป็นเส้นทางตรวจสอบมาตรฐานที่ชัดเจน" loading="lazy" decoding="async">
+          <figcaption>ระบบเปลี่ยนข้อมูลที่กระจัดกระจายให้เป็นสถานะที่ตรวจสอบได้ พร้อมเห็นว่าปัจจุบันผ่านมาตรฐานใดและควรพัฒนาไปถึงขั้นไหน</figcaption>
+        </figure>
+
+        <div class="grid-3">
+          <article class="panel">
+            <h3>เกษตรกรและฟาร์ม</h3>
+            <ul>
+              <li>มีผลผลิตแต่หาผู้ซื้อประจำยาก</li>
+              <li>เข้าถึงโรงแรมและร้านอาหารโดยตรงได้ยาก</li>
+              <li>ข้อมูลสินค้า ราคา และกำลังผลิตกระจัดกระจาย</li>
+              <li>ยอดคลัง คำสั่งซื้อ และงานจัดส่งติดตามแยกหลายช่องทาง</li>
+              <li>ตรวจยอดชำระและแจ้งลูกค้าด้วยคน ทำให้ตกหล่นได้</li>
+              <li>บางรายไม่สะดวกกรอกข้อมูลเอง</li>
+            </ul>
+          </article>
+          <article class="panel accent">
+            <h3>ธุรกิจท่องเที่ยว</h3>
+            <ul>
+              <li>หาผู้ผลิตในพื้นที่ที่ไว้ใจได้ยาก</li>
+              <li>ไม่รู้ว่าใครมีของตรงกับความต้องการ</li>
+              <li>ใช้เวลาตรวจสอบคู่ค้าแต่ละรายมาก</li>
+              <li>ติดตามการชำระเงินและสถานะส่งสินค้าจากหลายผู้ขายได้ยาก</li>
+              <li>ต้องการสินค้าและกิจกรรมที่มีเรื่องราวท้องถิ่น</li>
+            </ul>
+          </article>
+          <article class="panel blue">
+            <h3>ผู้ดูแลเครือข่าย</h3>
+            <ul>
+              <li>ไม่มีฐานข้อมูลกลางของทั้งผู้ขายและผู้ซื้อ</li>
+              <li>มองไม่เห็นว่าแต่ละพื้นที่มีของอะไร</li>
+              <li>ติดตามไม่ได้ว่าการจับคู่เกิดผลจริงหรือไม่</li>
+              <li>ไม่มีข้อมูลคำสั่งซื้อ ยอดขาย และการส่งมอบจริงเพื่อใช้ตัดสินใจ</li>
+              <li>วางแผนพัฒนาเศรษฐกิจรายพื้นที่ได้ยาก</li>
+            </ul>
+          </article>
+        </div>
+
+        <h3>ปัญหาด้านมาตรฐานสินค้าและบริการ</h3>
+        <article class="panel amber">
+          <span class="tag">ปัญหาข้ามทั้งระบบ</span>
+          <h3>ข้อมูลมาตรฐานกระจัดกระจาย และมองไม่เห็นแผนยกระดับคุณภาพ</h3>
+          <p>สมาชิกบางรายมีใบรับรองอยู่แล้ว บางรายกำลังเตรียมขอ และบางรายยังไม่รู้ว่าต้องเริ่มจากอะไร แต่ข้อมูลเหล่านี้มักอยู่ในเอกสารกระดาษ รูปภาพ หรือบทสนทนา ทำให้เครือข่ายไม่เห็นสถานะจริงและวางแผนช่วยเหลือได้ยาก</p>
+
+          <div class="grid-2">
+            <div>
+              <h4>ปัญหาของข้อมูลปัจจุบัน</h4>
+              <ul>
+                <li>ไม่รู้ว่าสมาชิกผ่านมาตรฐานใดแล้วบ้าง</li>
+                <li>ไม่รู้ว่าใบรับรองใช้กับองค์กร ฟาร์ม สินค้า หรือบริการใด</li>
+                <li>ไม่มีหลักฐาน ผู้ตรวจสอบ และวันหมดอายุที่ชัดเจน</li>
+                <li>ไม่รู้ว่าสมาชิกต้องการผ่านมาตรฐานใดเป็นลำดับต่อไป</li>
+                <li>ไม่มีข้อมูลช่องว่าง งบประมาณ และความช่วยเหลือที่ต้องการ</li>
+              </ul>
+            </div>
+            <div>
+              <h4>ผลกระทบต่อระบบนิเวศเครือข่าย (Ecosystem)</h4>
+              <ul>
+                <li>ควบคุมคุณภาพสินค้าและบริการได้ไม่สม่ำเสมอ</li>
+                <li>อาจแสดงสถานะผ่านมาตรฐานทั้งที่ใบรับรองหมดอายุแล้ว</li>
+                <li>ไม่รู้ว่าสมาชิกรายใดพร้อมเข้าสู่ตลาดหรือโครงการระดับใด</li>
+                <li>วางแผนอบรม ผู้เชี่ยวชาญ และงบสนับสนุนไม่ได้</li>
+                <li>การค้นหาและจับคู่ธุรกิจมีความเสี่ยงจากข้อมูลที่ไม่ครบ</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="note">
+            <strong>สิ่งที่ระบบต้องตอบให้ได้</strong>
+            สมาชิกผ่านมาตรฐานอะไรแล้ว ใช้กับสินค้า สถานที่ หรือบริการใด หลักฐานตรวจแล้วหรือยัง หมดอายุเมื่อไร ต้องการพัฒนาไปสู่มาตรฐานใดในเฟสไหน และต้องการความช่วยเหลือเรื่องอะไร
+          </div>
+        </article>
+      </section>
+
+      <section id="people">
+        <p class="section-kicker">04 · ผู้ใช้งาน</p>
+        <h2>ใครอยู่ในระบบบ้าง</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>กลุ่ม</th>
+                <th>ทำอะไร</th>
+                <th>ให้ข้อมูลอะไร</th>
+                <th>ได้อะไรกลับไป</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>เกษตรกร / ฟาร์ม</strong></td>
+                <td>ขายสินค้า จัดกิจกรรม และบริหารงานขาย</td>
+                <td>ข้อมูลฟาร์ม สินค้า ปริมาณ ราคา มาตรฐาน คลัง และสถานะจัดส่ง</td>
+                <td>ผู้ซื้อ โอกาสสร้างรายได้ และเครื่องมือจัดการคลัง คำสั่งซื้อ เงิน และการส่ง</td>
+              </tr>
+              <tr>
+                <td><strong>โรงแรม / ร้านอาหาร / ธุรกิจท่องเที่ยว</strong></td>
+                <td>ค้นหา สั่งซื้อ ชำระเงิน จัดแพ็กเกจ หรือขายของฝาก</td>
+                <td>สินค้าที่ต้องการ ปริมาณ รอบรับสินค้า งบ และมาตรฐาน</td>
+                <td>ผู้ผลิตที่ตรงความต้องการ การสั่งซื้อที่ชัดเจน และสถานะส่งสินค้าที่ติดตามได้</td>
+              </tr>
+              <tr>
+                <td><strong>ผู้ประสานงานเครือข่ายประจำพื้นที่</strong></td>
+                <td>ช่วยสมาชิกในแต่ละพื้นที่</td>
+                <td>ข้อมูลจากการลงพื้นที่ ผลตรวจสอบ และความคืบหน้าของความร่วมมือ</td>
+                <td>เครื่องมือเก็บข้อมูลและรายงานผลงานในพื้นที่</td>
+              </tr>
+              <tr>
+                <td><strong>ผู้ดูแลระบบกลาง</strong></td>
+                <td>ดูแลคุณภาพและกติกา</td>
+                <td>หมวดหมู่ สิทธิ์ผู้ใช้ ผลตรวจสอบ กฎแนะนำ การขาย และข้อร้องเรียน</td>
+                <td>ภาพรวมเครือข่าย ยอดขาย คุณภาพการส่งมอบ และข้อมูลตัดสินใจ</td>
+              </tr>
+              <tr>
+                <td><strong>นักท่องเที่ยว</strong></td>
+                <td>เป็นลูกค้าปลายทาง</td>
+                <td>รีวิวหรือความพึงพอใจ หากเก็บในอนาคต</td>
+                <td>อาหาร กิจกรรม และสินค้าท้องถิ่นที่มีเรื่องราว</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="business">
+        <p class="section-kicker">05 · การสร้างรายได้ร่วมกัน</p>
+        <h2>ธุรกิจเชื่อมกัน 3 แบบ</h2>
+
+        <figure class="section-visual">
+          <img src="assets/illustrations/04-business-models.webp" width="1672" height="941" alt="ฟาร์ม ร้านอาหาร ที่พัก กิจกรรมท่องเที่ยว และผู้ผลิตสินค้าชุมชน ร่วมกันสร้างรูปแบบธุรกิจ" loading="lazy" decoding="async">
+          <figcaption>ข้อมูลเดียวกันสามารถต่อยอดเป็นการขายวัตถุดิบ กิจกรรมท่องเที่ยว และสินค้าร่วมแบรนด์ โดยเริ่มจากการร่วมงานแบบเข้าใจง่าย</figcaption>
+        </figure>
+
+        <article class="business-model">
+          <div class="model-id">01</div>
+          <div>
+            <h3>วัตถุดิบจากฟาร์มสู่โต๊ะอาหาร (Farm-to-Table)</h3>
+            <p><strong>ฟาร์มขายวัตถุดิบสดให้โรงแรมหรือร้านอาหารเป็นประจำ</strong></p>
+            <p>ตัวอย่าง: ฟาร์มไข่ส่งไข่ 3,000 ฟองให้โรงแรมทุกเดือน ระบบใช้ชนิดสินค้า ปริมาณ ราคา พื้นที่ส่ง และมาตรฐานในการจับคู่</p>
+          </div>
+        </article>
+
+        <article class="business-model">
+          <div class="model-id">02</div>
+          <div>
+            <h3>การท่องเที่ยวเชิงเกษตร (Agri-Experience)</h3>
+            <p><strong>ฟาร์มขายกิจกรรมร่วมกับที่พักหรือบริษัททัวร์</strong></p>
+            <p>ตัวอย่าง: รีสอร์ตขายแพ็กเกจห้องพักพร้อมกิจกรรมเก็บเมล่อน ระบบใช้ประเภทกิจกรรม ความจุ ราคา เวลา ระยะทาง และสิ่งอำนวยความสะดวกในการจับคู่</p>
+          </div>
+        </article>
+
+        <article class="business-model">
+          <div class="model-id">03</div>
+          <div>
+            <h3>ของฝากร่วมแบรนด์ (Co-Branded Souvenir)</h3>
+            <p><strong>ที่พักนำสินค้าแปรรูปจากชุมชนมาขายหรือทำเป็นของต้อนรับ</strong></p>
+            <p>ตัวอย่าง: รีสอร์ตใช้แยมผลไม้ของชุมชนเป็นของต้อนรับ (Welcome Gift) ระบบใช้จำนวนสินค้าพร้อมส่ง ราคาส่ง ราคาขาย อายุสินค้า มาตรฐาน และความพร้อมทำแบรนด์ร่วมในการจับคู่</p>
+          </div>
+        </article>
+      </section>
+
+      <section id="architecture">
+        <p class="section-kicker">06 · แผนภาพระบบ (System Diagram)</p>
+        <h2>ภาพรวมการทำงานของระบบ</h2>
+        <p class="lead">ข้อมูลเดินทางจากคนในเครือข่ายเข้าสู่ฐานข้อมูลกลาง แล้วเชื่อมต่อไปยังการค้นหา ความร่วมมือ คลังสินค้า คำสั่งซื้อ การชำระเงิน และการจัดส่ง</p>
+
+        <figure class="section-visual">
+          <img src="assets/illustrations/05-platform-architecture.webp" width="1672" height="941" alt="ข้อมูลจากโทรศัพท์ แบบฟอร์ม และผู้ช่วยเก็บข้อมูล ไหลเข้าสู่ฐานข้อมูลกลาง ก่อนนำไปค้นหา จับคู่ และบริหารธุรกิจ" loading="lazy" decoding="async">
+          <figcaption>โครงสร้างระบบแบบง่าย: รับข้อมูลหลายช่องทาง จัดไว้ในฐานข้อมูลกลาง แล้วนำไปใช้กับงานเครือข่ายและงานขาย</figcaption>
+        </figure>
+
+        <figure>
+          <div class="flow-title">จากข้อมูล → ไปสู่ธุรกิจ</div>
+          <div class="system-flow" role="img" aria-label="ข้อมูลจากสมาชิกผ่านช่องทางกรอก เข้าสู่ฐานข้อมูลกลาง นำไปเชื่อมโยง สรุปแนวทางความร่วมมือ และเก็บผลกลับมา">
+            <div class="flow-node">
+              <strong>ผู้ให้ข้อมูล</strong>
+              <span>ฟาร์ม ธุรกิจท่องเที่ยว และผู้ประสานงานเครือข่ายประจำพื้นที่</span>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-node">
+              <strong>ช่องทางกรอก</strong>
+              <span>บัญชี LINE ทางการ (LINE OA), แบบฟอร์มใน LINE (LIFF), แบบฟอร์มเว็บ และการช่วยกรอกข้อมูล</span>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-node core">
+              <strong>ฐานข้อมูลกลาง</strong>
+              <span>สมาชิก สินค้า มาตรฐาน ความต้องการ คลังสินค้า คำสั่งซื้อ การชำระเงิน และการจัดส่ง</span>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-node output">
+              <strong>ผลลัพธ์</strong>
+              <span>เห็นทรัพยากร เชื่อมโยงธุรกิจ รับคำสั่งซื้อ ติดตามการส่งมอบ และวัดผลได้</span>
+            </div>
+          </div>
+          <div class="feedback-loop">↶ ทุกคำสั่งซื้อ การชำระเงิน การส่งมอบ และคะแนน จะอัปเดตคลังสินค้า ความน่าเชื่อถือ และภาพรวมเครือข่าย</div>
+          <figcaption>ระบบจึงไม่ได้เก็บเพียงรายชื่อสมาชิก แต่เชื่อมข้อมูลสมาชิกกับการดำเนินงานและผลลัพธ์ทางธุรกิจจริง</figcaption>
+        </figure>
+        <div class="note">
+          <strong>ลำดับการสร้าง</strong>
+          เริ่มจากฐานสมาชิก ทรัพยากร มาตรฐาน และหน้าสรุปภาพรวมก่อน จากนั้นเปิดระบบบริหารสินค้า คลังสินค้า คำสั่งซื้อ และการแจ้งเตือน เมื่อกระบวนการขายนิ่งแล้วจึงเชื่อมการชำระเงินออนไลน์และผู้ให้บริการขนส่ง
+        </div>
+      </section>
+
+      <section id="collection">
+        <p class="section-kicker">07 · การรับข้อมูล (Data Intake)</p>
+        <h2>เก็บข้อมูลอย่างไร</h2>
+
+        <figure class="section-visual">
+          <img src="assets/illustrations/06-data-collection.webp" width="1672" height="941" alt="สมาชิกกรอกข้อมูลผ่านโทรศัพท์ ผู้ประสานงานช่วยเก็บข้อมูลในพื้นที่ และผู้ดูแลตรวจสอบข้อมูล" loading="lazy" decoding="async">
+          <figcaption>สมาชิกกรอกเองได้ ผู้ประสานงานเครือข่ายประจำพื้นที่ช่วยกรอกได้ และผู้ดูแลตรวจข้อมูลก่อนนำไปใช้งาน</figcaption>
+        </figure>
+
+        <div class="grid-3">
+          <article class="panel">
+            <span class="tag">ตามเอกสารต้นฉบับ</span>
+            <h3>สมาชิกกรอกเอง</h3>
+            <p>เปิดแบบฟอร์มผ่านบัญชี LINE ทางการ (LINE OA) แบบฟอร์มใน LINE (LIFF) หรือเว็บบนโทรศัพท์ แล้วกรอกข้อมูลและอัปโหลดรูป</p>
+          </article>
+          <article class="panel accent">
+            <span class="tag">ตามเอกสารต้นฉบับ</span>
+            <h3>ผู้ประสานงานเครือข่ายประจำพื้นที่ช่วยกรอก</h3>
+            <p>ลงพื้นที่ สัมภาษณ์ ปักพิกัด ถ่ายรูป และกรอกแทนสมาชิก เหมาะกับคนที่ไม่สะดวกใช้ระบบเอง</p>
+          </article>
+          <article class="panel blue">
+            <span class="tag proposed">ควรเพิ่ม</span>
+            <h3>ผู้ดูแลตรวจข้อมูล</h3>
+            <p>ตรวจความครบถ้วน ลบรายการซ้ำ เช็กใบรับรอง และอนุมัติก่อนนำข้อมูลไปจับคู่</p>
+          </article>
+          <article class="panel amber">
+            <span class="tag">ระบบบันทึกอัตโนมัติ</span>
+            <h3>ข้อมูลจากการขาย</h3>
+            <p>คำสั่งซื้อ การจองสินค้า การชำระเงิน และสถานะจัดส่งจะอัปเดตจากเหตุการณ์ที่เกิดขึ้นจริง โดยสมาชิกไม่ต้องกรอกข้อมูลซ้ำทุกครั้ง</p>
+          </article>
+        </div>
+
+        <div class="proposal">
+          <strong>สิ่งที่ต้องบันทึกทุกครั้ง</strong>
+          ระบบควรรู้ว่าใครเป็นคนกรอก ใครเป็นเจ้าของข้อมูล ใครเป็นคนตรวจ กรอกเมื่อไร และแก้ไขล่าสุดเมื่อไร เพื่อป้องกันข้อมูลผิดหรือหาคนรับผิดชอบไม่ได้
+        </div>
+      </section>
+
+      <section id="data">
+        <p class="section-kicker">08 · โครงสร้างข้อมูล (Data Structure)</p>
+        <h2>แบบเก็บข้อมูลฉบับปัจจุบัน</h2>
+        <p class="lead">ข้อมูลต้องรองรับทั้งการมองเห็นทรัพยากรของเครือข่าย การยกระดับมาตรฐาน และการบริหารการขายของสมาชิกผู้ผลิตหรือผู้ประกอบการ</p>
+
+        <figure class="section-visual">
+          <img src="assets/illustrations/07-quality-data.webp" width="1672" height="941" alt="ข้อมูลผู้ผลิต แหล่งผลิต สินค้า บริการ หลักฐาน และมาตรฐาน เชื่อมโยงเป็นประวัติเดียวกัน" loading="lazy" decoding="async">
+          <figcaption>ข้อมูลสินค้าและบริการไม่ได้มีแค่ชื่อกับราคา แต่ต้องเชื่อมเจ้าของ แหล่งผลิต จำนวนพร้อมขาย หลักฐาน มาตรฐานปัจจุบัน และเป้าหมายระยะถัดไป</figcaption>
+        </figure>
+
+        <div class="plain-summary">
+          <strong>หลักสำคัญ:</strong>
+          ข้อมูลสมาชิกเป็นจุดเริ่มต้น แต่สินค้า มาตรฐาน คลังสินค้า คำสั่งซื้อ การชำระเงิน และการจัดส่งต้องแยกเป็นรายการของตัวเอง เพื่ออัปเดตข้อมูลปัจจุบันได้โดยไม่ลบประวัติเดิม
+        </div>
+
+        <h3>แบบเก็บข้อมูลแบ่งเป็น 9 ชุด</h3>
+        <div class="grid-3">
+          <article class="panel">
+            <span class="tag">เก็บตั้งแต่ระยะแรก</span>
+            <h3>1. สมาชิกและสิทธิ์ใช้งาน</h3>
+            <ul>
+              <li>ชื่อบุคคล กลุ่ม ฟาร์ม หรือกิจการ</li>
+              <li>ประเภทสมาชิกและบทบาทในเครือข่าย</li>
+              <li>ผู้ติดต่อ เบอร์โทร LINE และอีเมล</li>
+              <li>เลขทะเบียนหรือข้อมูลยืนยันตัวตนที่จำเป็น</li>
+              <li>ผู้ดูแลบัญชีและสิทธิ์ของเจ้าของหรือพนักงาน</li>
+              <li>ความยินยอมใช้และเปิดเผยข้อมูล</li>
+            </ul>
+          </article>
+
+          <article class="panel accent">
+            <span class="tag">เก็บตั้งแต่ระยะแรก</span>
+            <h3>2. สถานที่และพื้นที่ให้บริการ</h3>
+            <ul>
+              <li>ที่อยู่และพิกัดแผนที่ (GPS)</li>
+              <li>ประเภทสถานที่ เช่น ฟาร์ม โรงงาน ร้าน หรือที่พัก</li>
+              <li>พื้นที่ผลิต พื้นที่จัดกิจกรรม และสิ่งอำนวยความสะดวก</li>
+              <li>วันเวลาเปิดทำการและพื้นที่ให้บริการ</li>
+              <li>จุดรับสินค้า จุดเก็บสินค้า และรัศมีจัดส่ง</li>
+              <li>รูปภาพและผู้ประสานงานประจำสถานที่</li>
+            </ul>
+          </article>
+
+          <article class="panel blue">
+            <span class="tag">เก็บตั้งแต่ระยะแรก</span>
+            <h3>3. สินค้า บริการ และกำลังรองรับ</h3>
+            <ul>
+              <li>ผลผลิตสด สินค้าแปรรูป หรือกิจกรรมท่องเที่ยว</li>
+              <li>ชื่อ หมวด รายละเอียด รูปภาพ และหน่วยนับ</li>
+              <li>ฤดูกาล ปริมาณผลิต และจำนวนรองรับต่อรอบ</li>
+              <li>ราคาขายส่ง ราคาขายปลีก และจำนวนสั่งขั้นต่ำ</li>
+              <li>อายุสินค้า วิธีเก็บรักษา และเงื่อนไขจัดส่ง</li>
+              <li>สถานะพร้อมขาย พร้อมให้บริการ หรือหยุดชั่วคราว</li>
+            </ul>
+          </article>
+
+          <article class="panel">
+            <span class="tag">เก็บตั้งแต่ระยะแรก</span>
+            <h3>4. ความสามารถ ความต้องการ และความพร้อม</h3>
+            <ul>
+              <li>ความรู้ ทักษะ เครื่องมือ และกำลังคนที่มี</li>
+              <li>เรื่องที่ต้องการความช่วยเหลือหรือพัฒนา</li>
+              <li>ตลาดหรือกลุ่มลูกค้าที่ต้องการเข้าถึง</li>
+              <li>ความสนใจเข้าร่วมโครงการหรือทำงานร่วมกัน</li>
+              <li>ระดับความพร้อม: เริ่มต้น กำลังพัฒนา หรือพร้อมดำเนินงาน</li>
+              <li>เป้าหมาย ระยะเวลา ผู้รับผิดชอบ และความคืบหน้า</li>
+            </ul>
+          </article>
+
+          <article class="panel amber">
+            <span class="tag">ควบคุมคุณภาพ</span>
+            <h3>5. มาตรฐานสินค้าและบริการ</h3>
+            <ul>
+              <li>ชื่อมาตรฐานและใช้กับองค์กร สถานที่ สินค้า หรือบริการใด</li>
+              <li>สถานะ: ผ่านแล้ว กำลังเตรียม ต้องการพัฒนา หมดอายุ หรือไม่เกี่ยวข้อง</li>
+              <li>หน่วยงานรับรอง เลขที่ใบรับรอง และไฟล์หลักฐาน</li>
+              <li>วันที่รับรอง วันหมดอายุ ผู้ตรวจ และผลการตรวจสอบหลักฐาน</li>
+              <li>มาตรฐานเป้าหมายและระยะที่ต้องการดำเนินการ</li>
+              <li>ช่องว่าง งบประมาณ การอบรม หรือผู้เชี่ยวชาญที่ต้องการ</li>
+            </ul>
+          </article>
+
+          <article class="panel accent">
+            <span class="tag proposed">เมื่อเปิดระบบขาย</span>
+            <h3>6. คลังสินค้า</h3>
+            <ul>
+              <li>รหัสสินค้า จุดเก็บ ล็อตการผลิต และวันหมดอายุ</li>
+              <li>จำนวนรับเข้า จำนวนคงเหลือ จำนวนที่ถูกจอง และจำนวนพร้อมขาย</li>
+              <li>จุดเตือนสินค้าใกล้หมดหรือใกล้หมดอายุ</li>
+              <li>ต้นทุนต่อหน่วยและมูลค่าสินค้าคงเหลือ เฉพาะผู้มีสิทธิ์ด้านการเงิน</li>
+              <li>การปรับยอด ของเสีย ของคืน และเหตุผลที่แก้ไข</li>
+              <li>ผู้ทำรายการและเวลาที่เกิดรายการ</li>
+            </ul>
+          </article>
+
+          <article class="panel blue">
+            <span class="tag proposed">เมื่อเปิดระบบขาย</span>
+            <h3>7. คำสั่งซื้อ</h3>
+            <ul>
+              <li>เลขคำสั่งซื้อ ผู้ซื้อ ผู้ขาย และช่องทางที่สั่ง</li>
+              <li>สินค้า จำนวน ราคา ส่วนลด ภาษี และยอดรวม</li>
+              <li>ที่อยู่รับสินค้า วันที่ต้องการรับ และหมายเหตุ</li>
+              <li>สถานะตั้งแต่รับคำสั่งซื้อจนเสร็จสิ้น</li>
+              <li>รายการสินค้าที่ถูกจอง ตัดคลัง หรือคืนเข้าคลัง</li>
+              <li>เหตุผลการยกเลิก คืนสินค้า หรือคืนเงิน</li>
+            </ul>
+          </article>
+
+          <article class="panel amber">
+            <span class="tag proposed">เมื่อเปิดระบบขาย</span>
+            <h3>8. การชำระเงินและการจัดส่ง</h3>
+            <ul>
+              <li>ช่องทางชำระ ยอดชำระ เลขอ้างอิง และสถานะการชำระเงิน</li>
+              <li>เวลาชำระ หลักฐาน ใบเสร็จ และรายการคืนเงิน</li>
+              <li>วิธีจัดส่ง ผู้ให้บริการ และค่าจัดส่ง</li>
+              <li>เลขติดตาม สถานะ ตำแหน่ง และเวลาคาดว่าจะถึง</li>
+              <li>หลักฐานส่งมอบ ผู้รับ และปัญหาที่เกิดขึ้น</li>
+              <li>เงื่อนไขควบคุมอุณหภูมิเมื่อสินค้าต้องดูแลเป็นพิเศษ</li>
+            </ul>
+          </article>
+
+          <article class="panel">
+            <span class="tag">ใช้ทุกระยะ</span>
+            <h3>9. เจ้าของข้อมูลและประวัติการเปลี่ยนแปลง</h3>
+            <ul>
+              <li>เจ้าของข้อมูล ผู้กรอก ผู้ตรวจ และผู้อนุมัติ</li>
+              <li>วันสร้าง วันตรวจ และวันที่อัปเดตล่าสุด</li>
+              <li>แหล่งที่มาและระดับความน่าเชื่อถือ</li>
+              <li>ประวัติว่าใครแก้อะไร เมื่อไร และเพราะเหตุใด</li>
+              <li>สถานะข้อมูล: ฉบับร่าง รอตรวจ ใช้งานได้ หรือข้อมูลเก่า</li>
+              <li>สิทธิ์การมองเห็นและระยะเวลาการเก็บรักษา</li>
+            </ul>
+          </article>
+        </div>
+
+        <h3>ข้อมูลใดต้องอัปเดตเมื่อไร</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>กลุ่มข้อมูล</th><th>จังหวะอัปเดต</th><th>ผู้รับผิดชอบหลัก</th><th>ระบบช่วยอย่างไร</th></tr></thead>
+            <tbody>
+              <tr><td>สมาชิกและสถานที่</td><td>เมื่อมีการเปลี่ยนแปลง และยืนยันอย่างน้อยปีละครั้ง</td><td>เจ้าของข้อมูลหรือผู้ประสานงานพื้นที่</td><td>แจ้งเตือนให้ตรวจและยืนยันข้อมูลเดิม</td></tr>
+              <tr><td>สินค้า บริการ และกำลังรองรับ</td><td>ทุกวันที่ 25 หรือเมื่อราคาและความพร้อมเปลี่ยน</td><td>ผู้ผลิตหรือผู้ประกอบการ</td><td>สร้างรายการเดือนถัดไปจากข้อมูลเดิมให้แก้ไขได้</td></tr>
+              <tr><td>ความต้องการและความพร้อม</td><td>ทุก 3 เดือน หรือเมื่อเป้าหมายเปลี่ยน</td><td>สมาชิกและผู้ประสานงานพื้นที่</td><td>เตือนงานค้างและสรุปช่องว่างที่ต้องช่วยเหลือ</td></tr>
+              <tr><td>มาตรฐานและใบรับรอง</td><td>ทันทีเมื่อสถานะเปลี่ยน และก่อนหมดอายุ 60, 30 และ 7 วัน</td><td>สมาชิกและผู้ตรวจข้อมูล</td><td>เตือนต่ออายุและพักสถานะรับรองเมื่อหมดอายุ</td></tr>
+              <tr><td>คลังสินค้า</td><td>ทันทีเมื่อรับเข้า จอง ยกเลิก ส่งออก คืน หรือปรับยอด</td><td>ระบบและพนักงานคลัง</td><td>คำนวณจำนวนพร้อมขายและเตือนสินค้าใกล้หมด</td></tr>
+              <tr><td>คำสั่งซื้อ การชำระเงิน และการจัดส่ง</td><td>ทุกครั้งที่สถานะเปลี่ยน</td><td>ระบบขาย ผู้ให้บริการชำระเงิน และผู้ให้บริการขนส่ง</td><td>บันทึกเวลา แจ้งผู้เกี่ยวข้อง และรักษาประวัติอัตโนมัติ</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="note">
+          <strong>ความสัมพันธ์ของข้อมูลที่ต้องออกแบบให้ถูก</strong>
+          สมาชิกหนึ่งรายมีได้หลายสถานที่ หลายสินค้า หลายใบรับรอง และหลายคลัง สินค้าหนึ่งรายการมีได้หลายล็อต ส่วนคำสั่งซื้อหนึ่งรายการมีสินค้า การชำระเงิน และการจัดส่งได้มากกว่าหนึ่งรายการ จึงไม่ควรเก็บทั้งหมดรวมไว้ในช่องข้อความเดียว
+        </div>
+      </section>
+
+      <section id="seller-operations">
+        <p class="section-kicker">09 · ระบบบริหารการขายของสมาชิก</p>
+        <h2>ผู้ผลิตและผู้ประกอบการจัดการงานขายได้ในที่เดียว</h2>
+        <p class="lead">สมาชิกที่ได้รับสิทธิ์เป็นผู้ขายสามารถดูสินค้า คลัง คำสั่งซื้อ การชำระเงิน และการจัดส่งจากหน้าจอเดียว โดยข้อมูลทุกส่วนเชื่อมกลับไปยังโปรไฟล์และมาตรฐานของสมาชิก</p>
+
+        <figure class="section-visual">
+          <img src="assets/illustrations/08-seller-operations.webp" width="1672" height="941" alt="ผู้ผลิตตรวจคลัง รับแจ้งเตือนคำสั่งซื้อ รับชำระเงิน แพ็กสินค้า ส่งพัสดุ และติดตามการจัดส่ง" loading="lazy" decoding="async">
+          <figcaption>งานหลังบ้านของผู้ขายเชื่อมต่อกันตั้งแต่ตรวจของ รับออร์เดอร์ ยืนยันเงิน แพ็กสินค้า ไปจนถึงติดตามการส่งมอบ</figcaption>
+        </figure>
+
+        <div class="grid-3">
+          <article class="panel">
+            <h3>สินค้าและราคาขาย</h3>
+            <p>เพิ่มสินค้า รูปภาพ ราคา หน่วยนับ จำนวนสั่งขั้นต่ำ ฤดูกาล มาตรฐาน และเปิดหรือปิดการขายได้เอง</p>
+          </article>
+          <article class="panel accent">
+            <h3>คลังสินค้า</h3>
+            <p>ดูจำนวนคงเหลือ จำนวนที่ถูกจอง จำนวนพร้อมขาย ล็อต วันหมดอายุ และประวัติการปรับยอด ป้องกันการขายเกินจำนวนจริง</p>
+          </article>
+          <article class="panel blue">
+            <h3>คำสั่งซื้อ</h3>
+            <p>รับ ยืนยัน ปฏิเสธ เตรียมสินค้า ยกเลิก คืนสินค้า หรือปิดคำสั่งซื้อ พร้อมดูรายละเอียดผู้ซื้อและยอดเงิน</p>
+          </article>
+          <article class="panel amber">
+            <h3>การแจ้งเตือน</h3>
+            <p>แจ้งผ่านระบบและ LINE เมื่อมีคำสั่งซื้อใหม่ รอชำระ ชำระแล้ว ต้องเตรียมสินค้า ใกล้กำหนดส่ง ส่งล่าช้า หรือสินค้าใกล้หมด</p>
+          </article>
+          <article class="panel">
+            <h3>การจัดส่งและติดตาม</h3>
+            <p>เลือกวิธีส่ง บันทึกผู้ให้บริการ เลขติดตาม สถานะพัสดุ เวลาคาดว่าจะถึง หลักฐานส่งมอบ และปัญหาการขนส่ง</p>
+          </article>
+          <article class="panel accent">
+            <h3>การชำระเงินออนไลน์</h3>
+            <p>สร้าง QR หรือลิงก์ชำระเงินผ่านผู้ให้บริการรับชำระ ตรวจสถานะอัตโนมัติ ออกหลักฐาน และเชื่อมยอดชำระกับคำสั่งซื้อ</p>
+          </article>
+        </div>
+
+        <h3>ลำดับการทำงานของคำสั่งซื้อ</h3>
+        <figure>
+          <div class="workflow-map" role="img" aria-label="แปดขั้นตอนตั้งแต่รับคำสั่งซื้อจนปิดรายการ">
+            <div class="workflow-node"><strong>รับคำสั่งซื้อ</strong><small>ตรวจผู้ซื้อ สินค้า จำนวน และที่อยู่</small></div>
+            <div class="workflow-node"><strong>ตรวจและจองสินค้า</strong><small>กันสินค้าออกจากจำนวนพร้อมขาย</small></div>
+            <div class="workflow-node"><strong>สร้างรายการชำระเงิน</strong><small>ส่ง QR หรือลิงก์ชำระเงิน</small></div>
+            <div class="workflow-node"><strong>ยืนยันการชำระ</strong><small>รับสถานะจากผู้ให้บริการโดยอัตโนมัติ</small></div>
+            <div class="workflow-node"><strong>เตรียมสินค้า</strong><small>หยิบ บรรจุ และตรวจคุณภาพ</small></div>
+            <div class="workflow-node"><strong>จัดส่ง</strong><small>สร้างเลขติดตามและแจ้งผู้ซื้อ</small></div>
+            <div class="workflow-node"><strong>ยืนยันรับสินค้า</strong><small>เก็บหลักฐานและปัญหาที่พบ</small></div>
+            <div class="workflow-node"><strong>ปิดคำสั่งซื้อ</strong><small>ตัดคลัง ออกหลักฐาน และอัปเดตรายงาน</small></div>
+          </div>
+          <figcaption>หากผู้ซื้อไม่ชำระภายในเวลาที่กำหนด ระบบยกเลิกการจองและคืนสินค้าเข้าสู่จำนวนพร้อมขาย หากยกเลิกหลังชำระ จะเข้าสู่ขั้นตอนคืนเงินตามนโยบาย</figcaption>
+        </figure>
+
+        <h3>สถานะที่ทุกฝ่ายเข้าใจตรงกัน</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>สถานะ</th><th>ความหมาย</th><th>การทำงานของระบบ</th><th>ผู้ที่ได้รับแจ้ง</th></tr></thead>
+            <tbody>
+              <tr><td>คำสั่งซื้อใหม่</td><td>ผู้ซื้อส่งรายการแล้ว</td><td>แจ้งผู้ขายให้ตรวจและตอบรับ</td><td>ผู้ขาย</td></tr>
+              <tr><td>รอชำระเงิน</td><td>ผู้ขายยืนยันและจองสินค้าแล้ว</td><td>สร้าง QR หรือลิงก์พร้อมกำหนดเวลาชำระ</td><td>ผู้ซื้อ</td></tr>
+              <tr><td>ชำระแล้ว</td><td>ผู้ให้บริการยืนยันยอดสำเร็จ</td><td>เปลี่ยนสถานะและเริ่มนับเวลาเตรียมสินค้า</td><td>ผู้ซื้อและผู้ขาย</td></tr>
+              <tr><td>กำลังเตรียม</td><td>ผู้ขายกำลังหยิบและบรรจุ</td><td>เตือนเมื่อใกล้เกินกำหนด</td><td>ผู้ขาย</td></tr>
+              <tr><td>จัดส่งแล้ว</td><td>สินค้าอยู่ระหว่างขนส่ง</td><td>แสดงเลขติดตามและสถานะล่าสุด</td><td>ผู้ซื้อและผู้ขาย</td></tr>
+              <tr><td>ส่งสำเร็จ</td><td>มีการยืนยันรับสินค้า</td><td>ปิดงานส่งและขอคะแนน</td><td>ผู้ซื้อและผู้ขาย</td></tr>
+              <tr><td>ยกเลิกหรือคืนเงิน</td><td>รายการไม่ดำเนินต่อ</td><td>คืนจำนวนสินค้าและบันทึกเหตุผล</td><td>ผู้ซื้อ ผู้ขาย และผู้ดูแลเมื่อจำเป็น</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>สิทธิ์ของคนในกิจการ</h3>
+        <div class="grid-3">
+          <article class="panel">
+            <h3>เจ้าของกิจการ</h3>
+            <p>เห็นข้อมูลทั้งหมด ตั้งค่าร้าน ราคา บัญชีรับเงิน สิทธิ์พนักงาน รายงาน และการคืนเงิน</p>
+          </article>
+          <article class="panel blue">
+            <h3>พนักงานขายหรือคลัง</h3>
+            <p>ดูเฉพาะงานที่ได้รับมอบหมาย เช่น คำสั่งซื้อ คลัง การบรรจุ และการจัดส่ง โดยไม่เห็นข้อมูลการเงินทั้งหมด</p>
+          </article>
+          <article class="panel amber">
+            <h3>ผู้ประสานงานเครือข่ายประจำพื้นที่</h3>
+            <p>ช่วยสมาชิกตั้งค่าและติดตามปัญหาได้เฉพาะรายที่ได้รับอนุญาต ไม่ควรเห็นยอดรับเงินหรือข้อมูลส่วนตัวเกินความจำเป็น</p>
+          </article>
+        </div>
+
+        <div class="note">
+          <strong>รูปแบบการรับเงินที่แนะนำ</strong>
+          แพลตฟอร์มเชื่อมต่อผู้ให้บริการรับชำระเงิน (Payment Gateway) แล้วส่งเงินเข้าบัญชีผู้ขายโดยตรง ระบบเก็บเฉพาะเลขอ้างอิง ยอดเงิน และสถานะ ไม่เก็บข้อมูลบัตรของลูกค้า และไม่พักเงินไว้ในบัญชีของแพลตฟอร์ม
+        </div>
+        <div class="warning">
+          <strong>กติกาคลังสินค้าที่ต้องมี</strong>
+          เมื่อผู้ขายยืนยันคำสั่งซื้อ ระบบต้องจองสินค้าทันที หากหมดเวลาชำระหรือยกเลิกต้องคืนจำนวนสินค้าอัตโนมัติ ทุกการปรับยอดต้องมีเหตุผลและผู้ทำรายการ เพื่อป้องกันยอดคลังไม่ตรงกับของจริง
+        </div>
+      </section>
+
+      <section id="lifecycle">
+        <p class="section-kicker">10 · วงจรข้อมูล (Data Lifecycle)</p>
+        <h2>ข้อมูลเดินทางอย่างไร</h2>
+        <p class="lead">ข้อมูลสมาชิกและกำลังผลิตอัปเดตตามรอบ ส่วนคลัง คำสั่งซื้อ การชำระเงิน และการจัดส่งต้องเปลี่ยนทันทีตามเหตุการณ์จริง</p>
+
+        <figure>
+          <div class="lifecycle" role="img" aria-label="วงจรข้อมูล 7 ขั้น ตั้งแต่เก็บข้อมูลจนถึงอัปเดตรายเดือน">
+            <div class="life-step"><b>1. เก็บ</b><small>กรอกเองหรือมีคนช่วย</small></div>
+            <div class="life-step"><b>2. ตรวจ</b><small>เช็กตัวตนและความครบถ้วน</small></div>
+            <div class="life-step"><b>3. จัดหมวด</b><small>ทำชื่อ หน่วย และพื้นที่ให้ตรงกัน</small></div>
+            <div class="life-step"><b>4. เปิดใช้</b><small>แสดงในระบบค้นหา</small></div>
+            <div class="life-step"><b>5. นำไปใช้</b><small>ค้นหา เชื่อมโยง หรือรับคำสั่งซื้อ</small></div>
+            <div class="life-step"><b>6. บันทึกผล</b><small>ชำระ ส่งมอบ ปัญหา และคะแนน</small></div>
+            <div class="life-step"><b>7. อัปเดต</b><small>ตามรอบเวลาและเหตุการณ์จริง</small></div>
+          </div>
+          <figcaption>ระบบเตือนข้อมูลกำลังผลิตทุกวันที่ 25 เตือนใบรับรองก่อนหมดอายุ และอัปเดตคลังกับคำสั่งซื้อแบบทันทีเมื่อมีรายการเกิดขึ้น</figcaption>
+        </figure>
+
+        <h3>สถานะข้อมูลที่แนะนำ</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>สถานะ</th><th>แปลว่าอะไร</th><th>ระบบทำอย่างไร</th></tr></thead>
+            <tbody>
+              <tr><td>ฉบับร่าง (Draft)</td><td>กรอกยังไม่ครบ</td><td>ยังไม่แสดงให้คนอื่นเห็น</td></tr>
+              <tr><td>รอตรวจ</td><td>ส่งข้อมูลแล้ว</td><td>อยู่ในคิวของผู้ดูแล</td></tr>
+              <tr><td>ใช้งานได้</td><td>ข้อมูลผ่านการตรวจ</td><td>ค้นหาและจับคู่ได้</td></tr>
+              <tr><td>ต้องอัปเดต</td><td>ถึงรอบยืนยันข้อมูล</td><td>ส่งข้อความเตือนเจ้าของ</td></tr>
+              <tr><td>ข้อมูลเก่า</td><td>ไม่มีการยืนยันตามเวลา</td><td>พักจากการจับคู่ชั่วคราว</td></tr>
+              <tr><td>ระงับ</td><td>มีปัญหาคุณภาพหรือข้อร้องเรียน</td><td>หยุดใช้งานจนตรวจสอบเสร็จ</td></tr>
+              <tr><td>เก็บถาวร</td><td>เลิกกิจการหรือเลิกใช้ระบบ</td><td>เก็บประวัติแต่ไม่แสดง</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="usage">
+        <p class="section-kicker">11 · การใช้ข้อมูล (Data Usage)</p>
+        <h2>ระบบนำข้อมูลไปใช้อย่างไร</h2>
+        <div class="grid-3">
+          <article class="panel">
+            <h3>ค้นหาและดูบนแผนที่</h3>
+            <p>ค้นหาตามพื้นที่ ประเภทสินค้า ราคา ฤดูกาล มาตรฐาน และรัศมีส่งของ</p>
+          </article>
+          <article class="panel accent">
+            <h3>แนะนำคู่ค้า</h3>
+            <p>นำข้อมูลผู้ขายมาเทียบกับความต้องการของผู้ซื้อ แล้วเรียงคู่ที่เหมาะที่สุด</p>
+          </article>
+          <article class="panel blue">
+            <h3>สร้างสรุปโอกาสธุรกิจ</h3>
+            <p>บอกว่าใครต้องการซื้ออะไรจากใคร ปริมาณเท่าไร อยู่ห่างกันแค่ไหน และต้องทำอะไรต่อ</p>
+          </article>
+          <article class="panel amber">
+            <h3>ติดตามและวางแผน</h3>
+            <p>ดูว่าจังหวัดใดมีทรัพยากรที่พร้อมเสนอหรือมีความต้องการมาก โอกาสความร่วมมือค้างอยู่ขั้นไหน และสมาชิกใดน่าเชื่อถือ</p>
+          </article>
+          <article class="panel accent">
+            <h3>บริหารงานขาย</h3>
+            <p>ใช้ข้อมูลคลัง คำสั่งซื้อ การชำระเงิน และการจัดส่ง เพื่อรู้ว่างานใดต้องทำต่อ สินค้าใกล้หมดหรือไม่ และยอดขายเกิดขึ้นจริงเท่าไร</p>
+          </article>
+          <article class="panel blue">
+            <h3>วางแผนยกระดับมาตรฐาน</h3>
+            <p>เห็นใบรับรองที่กำลังหมดอายุ มาตรฐานเป้าหมาย ช่องว่าง และความช่วยเหลือที่สมาชิกแต่ละรายต้องการ</p>
+          </article>
+        </div>
+
+        <h3>ระบบจับคู่คิดอย่างไร</h3>
+        <div class="grid-2">
+          <article class="panel">
+            <h3>ขั้นที่ 1: ต้องผ่านเงื่อนไขหลัก</h3>
+            <ul>
+              <li>สินค้าและช่วงเวลาตรงกัน</li>
+              <li>ปริมาณรองรับได้</li>
+              <li>อยู่ในระยะส่งหรือเดินทางได้</li>
+              <li>มีมาตรฐานตามที่ผู้ซื้อต้องการ</li>
+              <li>ข้อมูลยังใหม่และใช้งานได้</li>
+            </ul>
+          </article>
+          <article class="panel accent">
+            <h3>ขั้นที่ 2: เรียงจากเหมาะมากไปน้อย</h3>
+            <ul>
+              <li>อยู่ใกล้กว่า</li>
+              <li>รองรับปริมาณได้มากกว่า</li>
+              <li>วิธีส่งของตรงกัน</li>
+              <li>อัปเดตข้อมูลล่าสุด</li>
+              <li>มีประวัติส่งของดีและคะแนนสูง</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="warning">
+          <strong>ระบบแนะนำ ไม่ได้ตัดสินแทนคน</strong>
+          เอกสารต้นฉบับยังไม่มีกฎคะแนนที่ชัด ช่วงเริ่มต้นควรให้ผู้ประสานงานเครือข่ายประจำพื้นที่หรือผู้ดูแลตรวจรายชื่อก่อนส่งให้คู่ค้า
+        </div>
+      </section>
+
+      <section id="workflow">
+        <p class="section-kicker">12 · ลำดับการทำงานตั้งแต่ต้นจนจบ (End-to-End Workflow)</p>
+        <h2>ลำดับการทำงานตั้งแต่เริ่มจนจบ</h2>
+
+        <figure class="section-visual">
+          <img src="assets/illustrations/09-end-to-end-workflow.webp" width="1672" height="941" alt="วงจรการทำงานตั้งแต่รับสมาชิก เก็บข้อมูล ตรวจมาตรฐาน เชื่อมคู่ค้า รับคำสั่งซื้อ ชำระเงิน จัดส่ง และนำผลกลับมาพัฒนาระบบ" loading="lazy" decoding="async">
+          <figcaption>วงจรทำงานครบตั้งแต่สร้างข้อมูลที่เชื่อถือได้ ไปจนถึงเกิดธุรกรรม ส่งมอบ และนำผลจริงกลับมาพัฒนาเครือข่าย</figcaption>
+        </figure>
+
+        <ol class="phase-list">
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>รับสมาชิกเข้าระบบ</h3>
+              <p>สมาชิกกรอกข้อมูลตัวตน สถานที่ ทรัพยากร ความสามารถ และความต้องการผ่าน LINE หรือเว็บ หากไม่สะดวก ผู้ประสานงานเครือข่ายประจำพื้นที่ช่วยกรอกให้</p>
+              <span class="tag">ผลลัพธ์: ข้อมูลสมาชิกและรายการฉบับร่าง</span>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>ตรวจข้อมูลและเปิดสิทธิ์ผู้ขาย</h3>
+              <p>ตรวจตัวตน พิกัด สินค้า ใบรับรอง และบัญชีรับเงิน จากนั้นกำหนดว่าใครเป็นเจ้าของกิจการ พนักงาน หรือผู้ช่วยดูแล</p>
+              <span class="tag">ผลลัพธ์: สมาชิกและบัญชีผู้ขายพร้อมใช้งาน</span>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>เปิดสินค้าและตั้งคลัง</h3>
+              <p>ผู้ขายกำหนดรายการสินค้า ราคา ปริมาณพร้อมขาย ล็อต จุดเตือน และเงื่อนไขจัดส่ง ระบบจะแสดงเฉพาะสินค้าที่ข้อมูลและมาตรฐานยังใช้งานได้</p>
+              <span class="tag">ผลลัพธ์: รายการสินค้าพร้อมรับคำสั่งซื้อ</span>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>ค้นหา เชื่อมโยง และสั่งซื้อ</h3>
+              <p>ผู้ซื้อค้นหาสินค้าหรือระบบแนะนำสมาชิกที่เหมาะ หากเป็นความร่วมมือระยะยาวสามารถทดลองสินค้าและบันทึกเงื่อนไขก่อนสร้างคำสั่งซื้อรายครั้งหรือรายรอบ</p>
+              <span class="tag">ผลลัพธ์: คำสั่งซื้อและสินค้าที่ถูกจอง</span>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>ชำระเงิน เตรียมสินค้า และจัดส่ง</h3>
+              <p>ระบบส่ง QR หรือลิงก์ชำระเงิน เมื่อยืนยันยอดแล้วจะแจ้งผู้ขายให้เตรียมสินค้า สร้างเลขติดตาม และแจ้งสถานะให้ผู้ซื้อ</p>
+              <span class="tag">ผลลัพธ์: ยอดชำระและสถานะส่งมอบที่ตรวจสอบได้</span>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>ปิดงานและเรียนรู้จากข้อมูลจริง</h3>
+              <p>เมื่อส่งสำเร็จ ระบบตัดคลัง เก็บคะแนน ปัญหา การซื้อซ้ำ และรายได้ พร้อมใช้ข้อมูลนี้ปรับความน่าเชื่อถือ การแนะนำ และแผนผลิตเดือนถัดไป</p>
+              <span class="tag">ผลลัพธ์: ประวัติธุรกรรมและภาพรวมธุรกิจที่อัปเดตแล้ว</span>
+            </div>
+          </li>
+        </ol>
+
+        <h3>แผนภาพลำดับการทำงานแบบละเอียด</h3>
+        <figure>
+          <div class="workflow-map" role="img" aria-label="สิบขั้นตอนการทำงาน ตั้งแต่รับสมาชิกจนปิดคำสั่งซื้อและอัปเดตข้อมูล">
+            <div class="workflow-node"><strong>รับสมาชิก</strong><small>บุคคล กลุ่ม ฟาร์ม และธุรกิจ</small></div>
+            <div class="workflow-node"><strong>ตรวจข้อมูล</strong><small>ตัวตน พิกัด มาตรฐาน และสิทธิ์</small></div>
+            <div class="workflow-node"><strong>สร้างรายการสินค้า</strong><small>รายละเอียด ราคา และเงื่อนไขขาย</small></div>
+            <div class="workflow-node"><strong>ตั้งคลัง</strong><small>จำนวน ล็อต จุดเก็บ และวันหมดอายุ</small></div>
+            <div class="workflow-node"><strong>ค้นหาและเชื่อมโยง</strong><small>เทียบทรัพยากรกับความต้องการ</small></div>
+            <div class="workflow-node"><strong>สร้างคำสั่งซื้อ</strong><small>สินค้า จำนวน ราคา และที่อยู่ส่ง</small></div>
+            <div class="workflow-node"><strong>จองสินค้าและแจ้งเตือน</strong><small>กันจำนวนพร้อมขายและแจ้งผู้ขาย</small></div>
+            <div class="workflow-node"><strong>ชำระเงิน</strong><small>QR หรือลิงก์ผ่านผู้ให้บริการ</small></div>
+            <div class="workflow-node"><strong>จัดส่งและติดตาม</strong><small>เลขติดตาม สถานะ และหลักฐาน</small></div>
+            <div class="workflow-node"><strong>ปิดงานและอัปเดต</strong><small>ตัดคลัง คะแนน รายได้ และรายงาน</small></div>
+          </div>
+          <figcaption>หากข้อมูลหรือมาตรฐานไม่ผ่าน ระบบส่งกลับไปแก้ไข หากสินค้าไม่พอจะไม่รับยอดเกินจริง และหากชำระไม่สำเร็จหรือยกเลิก ระบบต้องคืนสินค้าที่จองไว้พร้อมเก็บเหตุผล</figcaption>
+        </figure>
+
+        <div class="decision-row">
+          <div class="decision">
+            <strong>ถ้าสินค้าพร้อมและชำระสำเร็จ</strong>
+            <p>เข้าสู่การเตรียมสินค้า จัดส่ง ติดตาม ยืนยันรับ และปิดคำสั่งซื้อ</p>
+          </div>
+          <div class="decision no">
+            <strong>ถ้าสินค้าไม่พอ ชำระไม่สำเร็จ หรือยกเลิก</strong>
+            <p>แจ้งผู้เกี่ยวข้อง คืนจำนวนที่จองไว้ และเก็บเหตุผลเพื่อปรับสินค้า คลัง และการดำเนินงานครั้งต่อไป</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="example">
+        <p class="section-kicker">13 · ตัวอย่างจริง</p>
+        <h2>โรงแรมต้องการไข่เดือนละ 5,000 ฟอง</h2>
+        <ol>
+          <li>โรงแรมแจ้งว่าต้องการไข่ 5,000 ฟองต่อเดือน ส่งทุกสัปดาห์ และอยู่ไม่เกิน 40 กิโลเมตร</li>
+          <li>ระบบค้นหาฟาร์มที่มีไข่พอ อยู่ในพื้นที่ และข้อมูลยังใหม่</li>
+          <li>พบฟาร์ม A ส่งได้ 3,000 ฟอง และฟาร์ม B ส่งได้ 2,500 ฟอง</li>
+          <li>ระบบเสนอให้ใช้สองฟาร์มร่วมกันเพื่อให้ครบจำนวน</li>
+          <li>ผู้ประสานงานเครือข่ายประจำพื้นที่ตรวจข้อมูลและช่วยประสานการทดลองส่ง</li>
+          <li>โรงแรมยืนยันราคา วันส่ง คุณภาพ และสร้างคำสั่งซื้อ ระบบแยกรายการให้แต่ละฟาร์มพร้อมจองไข่ในคลัง</li>
+          <li>ระบบส่ง QR หรือลิงก์ชำระเงิน เมื่อชำระสำเร็จจะแจ้งทั้งโรงแรมและฟาร์ม</li>
+          <li>ฟาร์มเตรียมสินค้า บันทึกการจัดส่ง และโรงแรมติดตามสถานะได้</li>
+          <li>เมื่อโรงแรมยืนยันรับสินค้า ระบบปิดคำสั่งซื้อ ตัดคลัง และบันทึกคะแนนการตรงเวลา</li>
+          <li>วันที่ 25 ฟาร์มยืนยันกำลังผลิตเดือนถัดไป ระบบจึงวางแผนรอบใหม่จากยอดขายจริงได้</li>
+        </ol>
+        <div class="note">
+          <strong>ข้อสังเกต</strong>
+          หนึ่งความต้องการอาจใช้ผู้ขายหลายรายได้ ระบบควรสร้างคำสั่งซื้อย่อยแยกตามผู้ขาย แต่เชื่อมไว้กับความต้องการเดียวกัน เพื่อให้คลัง การชำระเงิน และการจัดส่งของแต่ละรายตรวจสอบได้ชัดเจน
+        </div>
+      </section>
+
+      <section id="modules">
+        <p class="section-kicker">14 · ส่วนประกอบของระบบ (System Modules)</p>
+        <h2>ระบบต้องมีส่วนประกอบอะไรบ้าง</h2>
+        <div class="grid-3">
+          <article class="panel">
+            <span class="tag">ฐานของระบบ</span>
+            <h3>สมาชิกและทรัพยากร</h3>
+            <ul>
+              <li>บัญชี LINE ทางการ (LINE OA) แบบฟอร์มใน LINE (LIFF) และแบบฟอร์มเว็บ</li>
+              <li>เครื่องมือช่วยกรอกสำหรับผู้ประสานงานเครือข่ายประจำพื้นที่</li>
+              <li>สมาชิก สถานที่ สินค้า บริการ และความสามารถ</li>
+              <li>มาตรฐาน ใบรับรอง และแผนยกระดับคุณภาพ</li>
+              <li>ระบบตรวจข้อมูล ความยินยอม และประวัติการแก้ไข</li>
+              <li>แผนที่ ระบบค้นหา และระบบช่วยแนะนำความร่วมมือ</li>
+              <li>พื้นที่ประสานความร่วมมือและแบบบันทึกแนวทางความร่วมมือ</li>
+            </ul>
+          </article>
+          <article class="panel accent">
+            <span class="tag">สำหรับสมาชิกผู้ขาย</span>
+            <h3>บริหารการขาย</h3>
+            <ul>
+              <li>รายการสินค้า ราคา และการเปิดหรือปิดขาย</li>
+              <li>คลัง ล็อต วันหมดอายุ และจุดเตือนสินค้า</li>
+              <li>คำสั่งซื้อ การจองสินค้า และการคืนสินค้า</li>
+              <li>แจ้งเตือนคำสั่งซื้อและงานที่ต้องดำเนินการ</li>
+              <li>การจัดส่ง เลขติดตาม และหลักฐานส่งมอบ</li>
+              <li>QR หรือลิงก์ชำระเงิน สถานะ และการคืนเงิน</li>
+            </ul>
+          </article>
+          <article class="panel blue">
+            <span class="tag">ส่วนกลางและการเชื่อมต่อ</span>
+            <h3>ความปลอดภัยและการกำกับดูแล</h3>
+            <ul>
+              <li>ระบบเข้าสู่ระบบและกำหนดสิทธิ์ตามบทบาท</li>
+              <li>ผู้ให้บริการรับชำระเงินและการตรวจสถานะอัตโนมัติ</li>
+              <li>ผู้ให้บริการขนส่งและการติดตามสถานะ</li>
+              <li>การแจ้งเตือนผ่าน LINE อีเมล หรือภายในระบบ</li>
+              <li>ข้อร้องเรียน ข้อพิพาท การคืนเงิน และบันทึกตรวจสอบ</li>
+              <li>หน้าสรุป รายงาน ตัวชี้วัด และการส่งออกข้อมูล</li>
+            </ul>
+          </article>
+        </div>
+        <p class="note"><strong>ขอบเขตการชำระเงิน:</strong> ระบบเชื่อม Payment Gateway เพื่อให้เงินเข้าผู้ขายโดยตรง ไม่เก็บข้อมูลบัตรและไม่พักเงินของสมาชิกไว้ในแพลตฟอร์ม ส่วนระบบพักเงินจนส่งมอบสำเร็จสามารถพิจารณาภายหลังได้หากมีความจำเป็นทางธุรกิจและข้อกฎหมายรองรับ</p>
+      </section>
+
+      <section id="dashboard">
+        <p class="section-kicker">15 · หน้าสรุปและตัวชี้วัด (Dashboard &amp; KPI)</p>
+        <h2>ควรวัดผลอะไร</h2>
+
+        <figure class="section-visual">
+          <img src="assets/illustrations/10-outcomes-roadmap.webp" width="1672" height="941" alt="ผู้ดูแลเครือข่ายดูแผนที่ สมาชิก มาตรฐาน คำสั่งซื้อ การเติบโต และแผนพัฒนาระบบเป็นระยะ" loading="lazy" decoding="async">
+          <figcaption>หน้าสรุปต้องช่วยเห็นทั้งคุณภาพข้อมูล ความพร้อมของสมาชิก ยอดขาย การส่งมอบ และการเติบโตของเครือข่ายในแต่ละระยะ</figcaption>
+        </figure>
+
+        <div class="grid-4">
+          <article class="panel">
+            <h3>ข้อมูลและมาตรฐาน</h3>
+            <ul>
+              <li>สมาชิกที่ใช้งานจริง</li>
+              <li>ข้อมูลที่ผ่านการตรวจ</li>
+              <li>ข้อมูลที่อัปเดตตรงเวลา</li>
+              <li>ใบรับรองที่ใช้งานได้และกำลังหมดอายุ</li>
+            </ul>
+          </article>
+          <article class="panel accent">
+            <h3>ความร่วมมือ</h3>
+            <ul>
+              <li>จำนวนคู่ที่แนะนำ</li>
+              <li>อัตราการตอบรับ</li>
+              <li>อัตราทดลองร่วมงาน</li>
+              <li>เวลาที่ใช้จนเกิดความร่วมมือจริง</li>
+            </ul>
+          </article>
+          <article class="panel amber">
+            <h3>การขายและปฏิบัติงาน</h3>
+            <ul>
+              <li>คำสั่งซื้อใหม่ รอชำระ และค้างจัดส่ง</li>
+              <li>อัตราชำระสำเร็จและอัตรายกเลิก</li>
+              <li>สินค้าใกล้หมด ใกล้หมดอายุ หรือขายเกินไม่ได้</li>
+              <li>เวลาเตรียมสินค้าและอัตราส่งตรงเวลา</li>
+            </ul>
+          </article>
+          <article class="panel blue">
+            <h3>ผลลัพธ์ของสมาชิก</h3>
+            <ul>
+              <li>ยอดขายและปริมาณซื้อขายจริง</li>
+              <li>จำนวนการซื้อซ้ำ</li>
+              <li>รายได้ใหม่ของสมาชิก</li>
+              <li>คะแนน ความพึงพอใจ และข้อร้องเรียน</li>
+            </ul>
+          </article>
+        </div>
+        <div class="warning">
+          <strong>อย่าวัดแค่จำนวนสมาชิก</strong>
+          สมาชิกเยอะแต่ข้อมูลไม่ใหม่ สินค้าไม่มีพร้อมขาย หรือคำสั่งซื้อไม่ถูกส่งมอบ ไม่ถือว่าระบบสำเร็จ ต้องวัดตั้งแต่คุณภาพข้อมูลจนถึงการชำระเงิน การส่งตรงเวลา และการซื้อซ้ำ
+        </div>
+      </section>
+
+      <section id="mvp">
+        <p class="section-kicker">16 · แผนพัฒนาระบบเป็นระยะ</p>
+        <h2>เริ่มจากฐานข้อมูล แล้วต่อยอดสู่ระบบขายเต็มรูปแบบ</h2>
+        <p class="lead">ความสามารถทั้งหมดอยู่ในขอบเขตระบบ แต่ควรเปิดใช้งานเป็นลำดับเพื่อให้สมาชิกเรียนรู้ได้ง่ายและลดความผิดพลาดของคลังกับเงิน</p>
+        <ol class="phase-list">
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>ระยะที่ 1 · ฐานสมาชิก ทรัพยากร และมาตรฐาน</h3>
+              <p>เริ่มใน 1 จังหวัดหรือกลุ่มพื้นที่ เก็บข้อมูลสมาชิก สถานที่ สินค้า ความสามารถ ความต้องการ ใบรับรอง และรอบอัปเดตข้อมูลให้เชื่อถือได้</p>
+              <span class="tag">ผลลัพธ์: เห็นภาพรวมและความพร้อมของเครือข่าย</span>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>ระยะที่ 2 · คลัง คำสั่งซื้อ และการแจ้งเตือน</h3>
+              <p>ให้สมาชิกกลุ่มทดลองจัดการสินค้า จำนวนพร้อมขาย รับคำสั่งซื้อ จองสินค้า แจ้งเตือนผ่าน LINE และบันทึกการจัดส่งแบบกรอกสถานะเองก่อน</p>
+              <span class="tag">ผลลัพธ์: พิสูจน์ว่างานขายและยอดคลังเดินได้จริง</span>
+            </div>
+          </li>
+          <li class="phase">
+            <span class="phase-index" aria-hidden="true"></span>
+            <div class="phase-content">
+              <h3>ระยะที่ 3 · ชำระเงินและติดตามขนส่งอัตโนมัติ</h3>
+              <p>เชื่อม Payment Gateway ให้เงินเข้าผู้ขายโดยตรง เชื่อมสถานะขนส่ง เพิ่มคืนเงิน รายงานยอดขาย และขยายสินค้า ผู้ขาย และพื้นที่เมื่อกระบวนการนิ่งแล้ว</p>
+              <span class="tag">ผลลัพธ์: ระบบขายออนไลน์ครบตั้งแต่สั่งจนส่งสำเร็จ</span>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section id="decisions">
+        <p class="section-kicker">17 · ก่อนเริ่มพัฒนา</p>
+        <h2>เรื่องที่ยังต้องตัดสินใจ</h2>
+        <ul class="metric-list">
+          <li>ใครเป็นเจ้าของและผู้ดูแลข้อมูล</li>
+          <li>ใครตรวจผู้ผลิตและใบรับรอง</li>
+          <li>ผู้ประสานงานเครือข่ายประจำพื้นที่ได้ค่าตอบแทนอย่างไร</li>
+          <li>แพลตฟอร์มหารายได้จากอะไร</li>
+          <li>ใช้ผู้ให้บริการรับชำระเงินรายใด และใครรับผิดชอบค่าธรรมเนียม</li>
+          <li>ต้องตรวจบัญชีรับเงินของผู้ขายด้วยวิธีใด</li>
+          <li>ใครรับผิดชอบยอดคลัง การนับสินค้า และการอนุมัติปรับยอด</li>
+          <li>ใครดูแลการขนส่งและระบบขนส่งควบคุมอุณหภูมิ (Cold Chain)</li>
+          <li>จะเชื่อมผู้ให้บริการขนส่งรายใด หรือให้ผู้ขายกรอกสถานะเอง</li>
+          <li>สินค้ามีปัญหา ใครรับผิดชอบ และคืนสินค้าหรือคืนเงินอย่างไร</li>
+          <li>ใครออกใบเสร็จหรือใบกำกับภาษีให้ผู้ซื้อ</li>
+          <li>กฎและคะแนนการแนะนำความร่วมมือคิดอย่างไร</li>
+          <li>ข้อมูลใดเปิดเผยและข้อมูลใดเป็นส่วนตัว</li>
+          <li>โครงการทดลองแรก (Pilot) จะทำที่ไหน กับสินค้าอะไร</li>
+        </ul>
+
+        <div class="warning">
+          <strong>คำว่า “รับประกันยอดซื้อรายเดือน” ต้องใช้ให้ระวัง</strong>
+          ระบบช่วยหาและติดตามความต้องการซื้อได้ แต่ยังรับประกันยอดไม่ได้ หากไม่มีสัญญาซื้อหรือผู้รับความเสี่ยงที่ชัดเจน
+        </div>
+
+        <div class="proposal">
+          <strong>ขอบเขตของเอกสารนี้</strong>
+          วิสัยทัศน์ โมเดลธุรกิจ ผู้ใช้ และประเภทสินค้าอ้างอิงจากเอกสารต้นฉบับ ส่วนแบบเก็บข้อมูล มาตรฐาน คลังสินค้า คำสั่งซื้อ การแจ้งเตือน การจัดส่ง การชำระเงิน ตัวชี้วัด และแผนพัฒนาเป็นข้อเสนอที่เพิ่มตามความต้องการปัจจุบัน โดยสมมติให้เงินเข้าผู้ขายผ่าน Payment Gateway โดยตรง
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>เอกสารระบบฉบับ HTML · อ้างอิงจาก <a href="agri_tourism_co_business_platform_blueprint.md">Agri-Tourism &amp; Livestock Co-Business Matching Ecosystem Blueprint</a></p>
+  </footer>
+
+  <script>
+    const progressBar = document.getElementById('progressBar');
+    const desktopNav = document.getElementById('desktopNav');
+    const mobileNav = document.querySelector('.mobile-toc nav');
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const navLinks = [...desktopNav.querySelectorAll('a')];
+
+    mobileNav.innerHTML = desktopNav.innerHTML;
+
+    function updateProgress() {
+      const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const percent = pageHeight > 0 ? Math.min(100, Math.max(0, (window.scrollY / pageHeight) * 100)) : 0;
+      progressBar.style.width = `${percent}%`;
+    }
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible) return;
+      navLinks.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${visible.target.id}`);
+      });
+    }, { rootMargin: '-12% 0px -68% 0px', threshold: [0.05, 0.25, 0.5] });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+  </script>
+</body>
+</html>
