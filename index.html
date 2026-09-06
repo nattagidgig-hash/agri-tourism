@@ -4,6 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="ระบบฐานสมาชิก ทรัพยากร มาตรฐาน และการบริหารการขายของเครือข่ายเกษตร ปศุสัตว์ และการท่องเที่ยว ตั้งแต่คลังสินค้าจนถึงการชำระเงินและจัดส่ง">
+  <meta property="og:title" content="แพลตฟอร์มสมาชิก ทรัพยากร และการบริหารการขายของเครือข่าย">
+  <meta property="og:description" content="ระบบฐานสมาชิก ทรัพยากร มาตรฐาน และการบริหารการขายของเครือข่ายเกษตร ปศุสัตว์ และการท่องเที่ยว ตั้งแต่คลังสินค้าจนถึงการชำระเงินและจัดส่ง">
+  <meta property="og:image" content="assets/cover.jpeg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="assets/cover.jpeg">
   <title>แพลตฟอร์มสมาชิก ทรัพยากร และการบริหารการขายของเครือข่าย</title>
   <style>
     :root {
@@ -84,11 +90,73 @@
     .hero-inner {
       width: min(calc(100% - 40px), var(--max));
       margin: 0 auto;
-      padding: 72px 0 62px;
+      padding: 64px 0 32px;
       display: grid;
       grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.55fr);
       gap: 56px;
       align-items: end;
+    }
+
+    .hero-cover-wrap {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      padding: 0 0 54px;
+    }
+
+    .hero-cover {
+      margin: 0;
+      background: #0d281c;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hero-cover:hover {
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero-cover picture {
+      display: block;
+      width: 100%;
+      line-height: 0;
+    }
+
+    .hero-cover img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 2816 / 1536;
+      object-fit: cover;
+    }
+
+    .hero-cover figcaption {
+      padding: 13px 20px;
+      font-size: 0.88rem;
+      color: #dfe9dc;
+      background: rgba(18, 61, 43, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      line-height: 1.5;
+    }
+
+    .hero-cover figcaption .cover-tag {
+      flex: 0 0 auto;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--forest);
+      background: var(--leaf);
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-cover figcaption .cover-desc {
+      color: #dfe9dc;
     }
 
     .eyebrow {
@@ -762,8 +830,18 @@
       .hero-inner {
         width: calc(100vw - 32px);
         max-width: calc(100vw - 32px);
-        padding: 56px 0 46px;
+        padding: 44px 0 24px;
         grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-cover-wrap {
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+        padding: 0 0 36px;
+      }
+      .hero-cover figcaption {
+        font-size: 0.78rem;
+        padding: 10px 14px;
+        gap: 8px;
       }
       .hero-inner > *,
       .page-shell > *,
@@ -825,6 +903,9 @@
       .reading-progress, .side-nav, .mobile-toc { display: none !important; }
       .hero { color: var(--ink); background: white; border-bottom: 4px solid var(--forest); }
       .hero-inner { width: 100%; padding: 0 0 24px; display: block; }
+      .hero-cover-wrap { width: 100%; padding: 0 0 20px; }
+      .hero-cover { box-shadow: none; border-radius: 4px; border: 1px solid var(--line); }
+      .hero-cover figcaption { background: white; color: var(--ink); border-top: 1px solid var(--line); }
       .hero h1 { color: var(--forest); font-size: 30pt; }
       .hero-lead, .hero-note p { color: var(--ink); }
       .hero-note { margin-top: 18px; }
@@ -856,6 +937,19 @@
         <strong>เป้าหมายระยะแรก</strong>
         <p>สร้างฐานสมาชิกและมองเห็นทรัพยากรก่อน จากนั้นเพิ่มการเชื่อมโยงธุรกิจ คลังสินค้า คำสั่งซื้อ การแจ้งเตือน การจัดส่ง และการชำระเงินออนไลน์เป็นลำดับ</p>
       </aside>
+    </div>
+
+    <div class="hero-cover-wrap">
+      <figure class="hero-cover">
+        <picture>
+          <source srcset="assets/cover.webp" type="image/webp">
+          <img src="assets/cover.jpeg" width="2816" height="1536" alt="ภาพหน้าปกแพลตฟอร์ม: 5 มิติการทำงานตั้งแต่สมาชิก ผลผลิต ท่องเที่ยว สรุปภาพรวม จนถึงการจัดส่ง" fetchpriority="high" decoding="async">
+        </picture>
+        <figcaption>
+          <span class="cover-tag">ภาพหน้าปก</span>
+          <span class="cover-desc">5 มิติการทำงาน: 01. อัปเดตข้อมูลผลผลิตง่ายๆ · 02. บริหารคำสั่งซื้อเครือข่าย · 03. เห็นภาพรวมสมาชิก · 04. จัดการการท่องเที่ยว · 05. ตรวจสอบการจัดส่ง</span>
+        </figcaption>
+      </figure>
     </div>
   </header>
 
