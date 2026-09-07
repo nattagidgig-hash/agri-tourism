@@ -81,6 +81,44 @@
       background: var(--leaf);
     }
 
+    .top-switch-bar {
+      background: #081d13;
+      color: #dfe9dc;
+      font-size: 0.86rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 9px 0;
+    }
+
+    .top-switch-inner {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-switch-inner strong { color: #fff; }
+
+    .btn-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--forest);
+      background: var(--leaf);
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .btn-switch:hover {
+      background: #b5db53;
+      transform: translateY(-1px);
+    }
+
     .hero {
       color: #f7f4e9;
       background: var(--forest);
@@ -925,6 +963,13 @@
 <body>
   <a class="skip-link" href="#main">ข้ามไปอ่านเนื้อหา</a>
   <div class="reading-progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <div class="top-switch-bar">
+    <div class="top-switch-inner">
+      <span>📌 คุณกำลังดู: <strong>พิมพ์เขียวฉบับเต็ม (Full Blueprint)</strong></span>
+      <a href="summary.html" class="btn-switch">⚡ สลับไปหน้าสรุปผู้บริหารแบบกระชับ (Executive Summary) →</a>
+    </div>
+  </div>
 
   <header class="hero">
     <div class="hero-inner">
