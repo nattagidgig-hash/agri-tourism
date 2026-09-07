@@ -119,6 +119,25 @@
       transform: translateY(-1px);
     }
 
+    .btn-switch-alt {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .btn-switch-alt:hover {
+      background: rgba(255, 255, 255, 0.28);
+      transform: translateY(-1px);
+    }
+
     .hero {
       color: #f7f4e9;
       background: var(--forest);
@@ -967,7 +986,10 @@
   <div class="top-switch-bar">
     <div class="top-switch-inner">
       <span>📌 คุณกำลังดู: <strong>พิมพ์เขียวฉบับเต็ม (Full Blueprint)</strong></span>
-      <a href="summary.html" class="btn-switch">⚡ สลับไปหน้าสรุปผู้บริหารแบบกระชับ (Executive Summary) →</a>
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+        <a href="summary.html" class="btn-switch-alt">⚡ สรุปผู้บริหาร (Summary) →</a>
+        <a href="action-plan.html" class="btn-switch">🎯 เป้าหมาย & Action Plan 2026–2027 →</a>
+      </div>
     </div>
   </div>
 
